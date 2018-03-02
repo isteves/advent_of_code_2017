@@ -59,6 +59,7 @@ From this, we see that:
 -   Each frame (after frame 1) ends with an even number, specifically, 2(*n* − 1)
 -   Each frame (after 1) starts with an odd number, specifically, one less than the even number: 2(*n* − 1)−1 = 2*n* − 3
 -   The minimum number of steps in each frame is equal to *n* − 1
+-   The maximum number of steps is equal to the last number in the frame, or 2(*n* − 1)
 -   Except for frame 1, the number of digits in each frame is divisible by 4 (since there are four sides in a frame)
 
 <!-- -->
@@ -124,7 +125,7 @@ print(positions)
     ##  9 15 14 13 12 11 10 9 8 9 10 11 12 13 14 15 16 15 14 13 12 11 10 9 8 9 10 11 
     ## 10 17 16 15 14 13 12 11 10 9 10 11 12 13 14 15 16 17 18 17 16 15 14 13 12 11 1
 
-If you now paste it all together as a long string (with a tiny bit of base R), and then separate out again into a vector of integers, we can answer the puzzle question!
+If we now paste it all together as a long string (with a tiny bit of base R), and then separate out again into a vector of integers, we can answer the puzzle question!
 
 ``` r
 str_c(positions$seq4, collapse = " ") %>% 
@@ -165,19 +166,17 @@ positions500 <- tibble(frame = 1:500) %>%
     mutate(seq4 = replace(seq4, frame == 1, 0)) %>%  #replace frame 1's sequence with 0
     select(seq4) %>% 
     
-    str_c(collapse = " ") %>% 
-    #directly using str_c on the tibble, rather than tibble$seq4 
-    #results in the inclusion of some special characters
-    #so, rather than str_split at all the spaces,
-    #we can extract all digits instead:
+    str_c(collapse = " ") %>% #see NOTE
     str_extract_all("\\d+", simplify = TRUE) %>% 
     as.numeric()
 ```
 
+*Note:* Directly using `str_c` on the tibble, rather than subsetting the column using something like `tibble$seq4` results in the inclusion of some special characters. So, rather than `str_split` at all spaces (" "), we can extract all digits instead (using this handy [basic regular expressions in R cheatsheet](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf)).
+
 Let's run some tests to make sure it works!
 
 ``` r
-positions500[1] == 0; positions500[12] == 3; positions500[23] == 2; positions500[1024] == 31
+positions500[12] == 3; positions500[23] == 2; positions500[1024] == 31
 ```
 
     ## [1] TRUE
@@ -186,4 +185,66 @@ positions500[1] == 0; positions500[12] == 3; positions500[23] == 2; positions500
 
     ## [1] TRUE
 
-    ## [1] TRUE
+:satisfied: :star2: :fireworks:
+
+Part II
+-------
+
+    total_x <- NULL
+    for(i in 1:1000){
+        vector <- c(rep((-1)^(i+1), i), rep(0, i))
+        total_x <- c(total_x, vector)
+    }
+
+    total_y <- NULL
+    for(i in 1:1000){
+        vector <- c(rep(0, i), rep((-1)^(i+1), i))
+        total_y <- c(total_y, vector)
+    }
+
+    xy <- data.frame(x = c(0,total_x),
+               y = c(0,total_y))
+
+    #test with small matrix
+    grid <- matrix(nrow = 5, ncol = 5)
+
+    #start with...
+    i = 3; j = 3
+    for(n in 1:10){
+        i <- i - xy$y[n]
+        j <- j + xy$x[n]
+        grid[i, j] <- n
+        print(grid)
+    }
+    #^this will print the numbers in order from the center in a spiral pattern
+
+    grid <- matrix(nrow = 7, ncol = 7); i = 4; j = 4; grid[4,4] <- 1
+    #now instead of printing the numbers, we'll do some addition...
+    for(n in 2:20){
+        i <- i - xy$y[n]
+        j <- j + xy$x[n]
+        
+        #get sum of neighbors
+        neighbors <- grid[(i - 1):(i + 1), (j - 1):(j + 1)]
+        sum_neighbors <- sum(neighbors, na.rm = TRUE)
+        
+        grid[i, j] <- sum_neighbors
+    }
+    #it seems to work! 
+
+    #now let's expand it and also save the values as a vector...
+    grid <- matrix(nrow = 1001, ncol = 1001); i = 501; j = 501; grid[i,j] <- 1
+    v_sum_neighbors <- NULL
+    for(n in 2:1000){
+        i <- i - xy$y[n]
+        j <- j + xy$x[n]
+        
+        #get sum of neighbors
+        neighbors <- grid[(i - 1):(i + 1), (j - 1):(j + 1)]
+        sum_neighbors <- sum(neighbors, na.rm = TRUE)
+        
+        grid[i, j] <- sum_neighbors
+        v_sum_neighbors <- c(v_sum_neighbors, sum_neighbors)
+    }
+
+    head(v_sum_neighbors[v_sum_neighbors > 312051])
