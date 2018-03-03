@@ -1,7 +1,7 @@
 Advent of Code: Day 3
 ================
 Irene Steves
-February 16, 2018
+March 3, 2018
 
 Compared to [Day 3](https://adventofcode.com/2017/day/3), Days 1 and 2 were a breeze! It definitely put that growing coding ego in check.
 
