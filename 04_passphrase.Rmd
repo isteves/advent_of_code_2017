@@ -1,0 +1,121 @@
+---
+title: "Advent of Code: Day 4"
+author: "Irene Steves"
+date: "March 3, 2018"
+output: github_document
+---
+
+Let's get down to business with [Day 4](https://adventofcode.com/2017/day/4).
+
+![](https://blog.goennounce.com/top-5-tips-to-survive-finals/lets-get-down-to-business-gif/)
+
+## Part I
+
+```
+A new system policy has been put in place that requires all accounts to use a passphrase instead of simply a password. A passphrase consists of a series of words (lowercase letters) separated by spaces.
+
+To ensure security, a valid passphrase must contain no duplicate words.
+
+For example:
+
+aa bb cc dd ee is valid.
+aa bb cc dd aa is not valid - the word aa appears more than once.
+aa bb cc dd aaa is valid - aa and aaa count as different words.
+
+The system's full passphrase list is available as your puzzle input. How many passphrases are valid?
+```
+
+Here's what the beginning of my puzzle input looked like:
+
+```
+sayndz zfxlkl attjtww cti sokkmty brx fhh suelqbp
+xmuf znkhaes pggrlp zia znkhaes znkhaes
+nti rxr bogebb zdwrin
+sryookh unrudn zrkz jxhrdo gctlyz
+bssqn wbmdc rigc zketu ketichh enkixg bmdwc stnsdf jnz mqovwg ixgken
+flawt cpott xth ucwgg xce jcubx wvl qsysa nlg
+qovcqn zxcz vojsno nqoqvc hnf gqewlkd uevax vuna fxjkbll vfge
+qrzf phwuf ligf xgen vkig elptd njdm gvqiu epfzsvk urbltg dqg
+sfpku viwihi fje umdkwvi ejzhzj qrbl sfpku sad nawnow ksnku
+nzhj mfudick ueaa jnhz kpy pzk
+euiin xvl elaoelu wbdd xlv jtm nohtq gfdbgdg gdfggdb edtym
+xfmkn wyww woe hwysuh gjw dtk utryasc dela eluk vmmun
+nmag qfwe cwslmgd nlhf hpf
+ifs sszo iod isf jna
+```
+
+We are interested in determining if each passphrase is valid, so let's start with a function:
+
+```{r message = FALSE, warning = FALSE}
+library(tidyverse)
+
+validate_passphrase <- function(passphrase) {
+    words <- str_split(passphrase, " ")[[1]] #vector of words
+    if(any(duplicated(words)) == TRUE){ #if any words are duplicated
+        valid = FALSE #then the passcode is not valid
+    } else{ #otherwise, it'll be false
+        valid = TRUE
+    }
+    return(valid)
+}
+```
+
+Let's test it out to make sure it works the way we think it does:
+
+```{r}
+validate_passphrase("I love starfruit and nectarines")
+validate_passphrase("I love chocolate and I also like pie")
+```
+
+#see if getURL works...
+
+```{r}
+data <- read.csv()
+
+results <- apply(data, 1, validate_passphrase)
+sum(results)
+
+```
+
+
+
+## Part II
+
+```
+For added security, yet another system policy has been put in place. Now, a valid passphrase must contain no two words that are anagrams of each other - that is, a passphrase is invalid if any word's letters can be rearranged to form any other word in the passphrase.
+
+For example:
+
+abcde fghij is a valid passphrase.
+abcde xyz ecdab is not valid - the letters from the third word can be rearranged to form the first word.
+a ab abc abd abf abj is a valid passphrase, because all letters need to be used when forming another word.
+iiii oiii ooii oooi oooo is valid.
+oiii ioii iioi iiio is not valid - any of these words can be rearranged to form any other word.
+
+Under this new system policy, how many passphrases are valid?
+```
+
+To deal with anagrams, let's write another function to rearrange all words alphabetically.
+
+```{r}
+alphabetize <- function(word) { 
+    word %>% 
+        str_split("", simplify = TRUE) %>% #split into single letters
+        sort() %>% #alphabetize
+        str_c(collapse = "") #put back into a word
+}
+```
+
+Since the policy is now stricter, valid passphrases under the new policy will be a subset of valid passphrases from before. For each passphrase, we now want to first `alphabetize` and then `validate_passphrase` as we did before.
+
+```{r}
+t2 <- tdata[,data_valid]
+
+data %>% 
+    mutate(alpha_pp = alphabetize(passphrase),
+           valid_pp = validate_passphrase(alpha_pp)) %>% 
+    summarize(sum_valid = sum(valid_pp))
+
+```
+
+
