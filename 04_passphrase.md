@@ -1,33 +1,30 @@
----
-title: "Advent of Code: Day 4"
-author: "Irene Steves"
-date: "March 3, 2018"
-output: github_document
----
+Advent of Code: Day 4
+================
+Irene Steves
+March 3, 2018
 
 Let's get down to business with [Day 4](https://adventofcode.com/2017/day/4).
 
 ![](https://blog.goennounce.com/wp-content/uploads/2015/12/lets-get-down-to-business-gif.gif)
 
-## Part I
+Part I
+------
 
-```
-A new system policy has been put in place that requires all accounts to use a passphrase instead of simply a password. A passphrase consists of a series of words (lowercase letters) separated by spaces.
+    A new system policy has been put in place that requires all accounts to use a passphrase instead of simply a password. A passphrase consists of a series of words (lowercase letters) separated by spaces.
 
-To ensure security, a valid passphrase must contain no duplicate words.
+    To ensure security, a valid passphrase must contain no duplicate words.
 
-For example:
+    For example:
 
-aa bb cc dd ee is valid.
-aa bb cc dd aa is not valid - the word aa appears more than once.
-aa bb cc dd aaa is valid - aa and aaa count as different words.
+    aa bb cc dd ee is valid.
+    aa bb cc dd aa is not valid - the word aa appears more than once.
+    aa bb cc dd aaa is valid - aa and aaa count as different words.
 
-The system's full passphrase list is available as your puzzle input. How many passphrases are valid?
-```
+    The system's full passphrase list is available as your puzzle input. How many passphrases are valid?
 
 Here's what the beginning of my puzzle input looked like:
 
-```{r}
+``` r
 puzzle_input <-
     "sayndz zfxlkl attjtww cti sokkmty brx fhh suelqbp
 xmuf znkhaes pggrlp zia znkhaes znkhaes
@@ -55,7 +52,7 @@ uzbvx fkiuyk izxdiu yutntvn dixuzi hkyfnud oyz ynutntv"
 
 We are interested in determining if each passphrase is valid, so let's start with a function:
 
-```{r message = FALSE, warning = FALSE}
+``` r
 library(tidyverse)
 
 validate_passphrase <- function(passphrase) {
@@ -71,14 +68,21 @@ validate_passphrase <- function(passphrase) {
 
 Let's test it out to make sure it works the way we think it does:
 
-```{r}
+``` r
 validate_passphrase("I love starfruit and nectarines")
+```
+
+    ## [1] TRUE
+
+``` r
 validate_passphrase("I love chocolate cake and chocolate ice cream")
 ```
 
+    ## [1] FALSE
+
 With our function, we just need to reformat our puzzle input a bit and pipe everything through.
 
-```{r warning = FALSE}
+``` r
 puzzle_input %>% 
     str_split("\n", simplify = TRUE) %>% #split by line
     t() %>% #transpose
@@ -89,30 +93,34 @@ puzzle_input %>%
     summarise(sum = sum(validation)) #since TRUE = 1, the sum(validation) is the number of valid passphrases
 ```
 
+    ## # A tibble: 1 x 1
+    ##     sum
+    ##   <int>
+    ## 1    16
+
 Easy peasy!
 
-## Part II
+Part II
+-------
 
-```
-For added security, yet another system policy has been put in place. Now, a valid
-passphrase must contain no two words that are anagrams of each other - that is, a
-passphrase is invalid if any word's letters can be rearranged to form any other word
-in the passphrase.
+    For added security, yet another system policy has been put in place. Now, a valid
+    passphrase must contain no two words that are anagrams of each other - that is, a
+    passphrase is invalid if any word's letters can be rearranged to form any other word
+    in the passphrase.
 
-For example:
+    For example:
 
-abcde fghij is a valid passphrase.
-abcde xyz ecdab is not valid - the letters from the third word can be rearranged to form the first word.
-a ab abc abd abf abj is a valid passphrase, because all letters need to be used when forming another word.
-iiii oiii ooii oooi oooo is valid.
-oiii ioii iioi iiio is not valid - any of these words can be rearranged to form any other word.
+    abcde fghij is a valid passphrase.
+    abcde xyz ecdab is not valid - the letters from the third word can be rearranged to form the first word.
+    a ab abc abd abf abj is a valid passphrase, because all letters need to be used when forming another word.
+    iiii oiii ooii oooi oooo is valid.
+    oiii ioii iioi iiio is not valid - any of these words can be rearranged to form any other word.
 
-Under this new system policy, how many passphrases are valid?
-```
+    Under this new system policy, how many passphrases are valid?
 
 To deal with anagrams, let's write another function to rearrange all words alphabetically, and then revise `validate_passphrase` to account for anagrams. We'll call this new function, `validate_anagrams`.
 
-```{r}
+``` r
 alphabetize <- function(word) { 
     word %>% 
         str_split("", simplify = TRUE) %>% #split into single letters
@@ -134,7 +142,7 @@ validate_anagrams <- function(passphrase) {
 
 Now that we have our new function, we can stick it into the same pipe as before to get our answer! :star:
 
-```{r}
+``` r
 puzzle_input %>% 
     str_split("\n", simplify = TRUE) %>%
     t() %>% 
@@ -143,7 +151,9 @@ puzzle_input %>%
     mutate(validation = validate_anagrams(V1)) %>% 
     ungroup() %>% 
     summarise(sum = sum(validation)) 
-
 ```
 
-
+    ## # A tibble: 1 x 1
+    ##     sum
+    ##   <int>
+    ## 1     9
