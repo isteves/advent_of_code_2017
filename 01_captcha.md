@@ -3,10 +3,6 @@ Advent of Code: Day 1
 Irene Steves
 February 16, 2018
 
-The 2017 Advent of Code may already be two months behind us, but I figured it's still not too late to write up some of my solutions for the challenge. It was my first time participating, and I managed to finish about 10 of them before the holiday festivities (and thesis writing) caught up with me.
-
-As almost purely an R User, my answers are all R based. It may not be the neatest for certain puzzles, but you can always make it work somehow!
-
 Part I
 ------
 
@@ -35,38 +31,7 @@ I ended up taking the following approach (which you can review in the code chunk
 
 ``` r
 library(tidyverse)
-```
 
-    ## Warning: package 'tidyverse' was built under R version 3.4.3
-
-    ## -- Attaching packages ---------------------------------- tidyverse 1.2.1 --
-
-    ## v ggplot2 2.2.1     v purrr   0.2.4
-    ## v tibble  1.3.4     v dplyr   0.7.4
-    ## v tidyr   0.7.2     v stringr 1.2.0
-    ## v readr   1.1.1     v forcats 0.2.0
-
-    ## Warning: package 'ggplot2' was built under R version 3.4.3
-
-    ## Warning: package 'tibble' was built under R version 3.4.3
-
-    ## Warning: package 'tidyr' was built under R version 3.4.3
-
-    ## Warning: package 'readr' was built under R version 3.4.3
-
-    ## Warning: package 'purrr' was built under R version 3.4.3
-
-    ## Warning: package 'dplyr' was built under R version 3.4.3
-
-    ## Warning: package 'stringr' was built under R version 3.4.3
-
-    ## Warning: package 'forcats' was built under R version 3.4.3
-
-    ## -- Conflicts ------------------------------------- tidyverse_conflicts() --
-    ## x dplyr::filter() masks stats::filter()
-    ## x dplyr::lag()    masks stats::lag()
-
-``` r
 x <- "8231753674683997878179259195565332579493378483264978"
 x_vector <- str_split(x, "")[[1]]
 
@@ -80,10 +45,10 @@ for(i in 1:(length(x_vector) - 1)){
 answer <- sum + 8
 ```
 
-Part 2
-------
+Part II
+-------
 
-Part 2 is almost the same, but requires a few modifications:
+Part II adds a few differences, forcing us to think more generally about this problem (that + 8 at the end of that previous method works, but is not neat in the least!).
 
     Now, instead of considering the next digit, it wants you to consider the digit
     halfway around the circular list. That is, if your list contains 10 items, only
@@ -106,8 +71,17 @@ We start with the same input (`x`) as before, but we need a few modifications:
 2.  Now rather than compare `i` and `i + 1`, we're interested in `i` and `i + l/2`. (English: any digit and the digit halfway around the circular list).
 3.  Save as a sum like before! No need to add 8 since we're checking on all our digits (from 1 to the total length of `x_vector`) in our for-loop.
 
-<!-- -->
+``` r
+sum <- 0
+x_vector2 <- c(x_vector, x_vector) #doubled
+len <- length(x_vector)
 
-    ## [1] 52
+for(i in 1:len){
+    if(x_vector2[i] == x_vector2[i + len/2]){
+        sum <- sum + as.numeric(x_vector[i])
+    }
+}
+sum 
+```
 
 Not so bad for Day 1, eh?

@@ -5,10 +5,6 @@ date: "February 16, 2018"
 output: github_document
 ---
 
-The 2017 Advent of Code may already be two months behind us, but I figured it's still not too late to write up some of my solutions for the challenge.  It was my first time participating, and I managed to finish about 10 of them before the holiday festivities (and thesis writing) caught up with me. 
-
-As almost purely an R User, my answers are all R based.  It may not be the neatest for certain puzzles, but you can always make it work somehow!
-
 ## Part I
 
 Let's get started with the challenge from [Day 1](https://adventofcode.com/2017/day/1). Here's the key part:
