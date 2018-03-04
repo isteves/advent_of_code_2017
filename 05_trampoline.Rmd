@@ -1,0 +1,138 @@
+---
+title: "Advent of Code: Day 5"
+author: "Irene Steves"
+date: "March 3, 2018"
+output: github_document
+---
+
+Today is the day for [Day 5](https://adventofcode.com/2017/day/5): a maze of twisty trampolines, all alike!
+
+## Part I
+
+This puzzle involves jumping around a bunch of numbers until you can "escape": 
+
+```
+Positive jumps ("forward") move downward; negative jumps move upward. For legibility in this example, these offset values will be written all on one line, with the current instruction marked in parentheses. The following steps would be taken before an exit is found:
+
+(0) 3  0  1  -3  - before we have taken any steps.
+(1) 3  0  1  -3  - jump with offset 0 (that is, don't jump at all). Fortunately, the instruction is then incremented to 1.
+ 2 (3) 0  1  -3  - step forward because of the instruction we just modified. The first instruction is incremented again, now to 2.
+ 2  4  0  1 (-3) - jump all the way to the end; leave a 4 behind.
+ 2 (4) 0  1  -2  - go back to where we just were; increment -3 to -2.
+ 2  5  0  1  -2  - jump 4 steps forward, escaping the maze.
+In this example, the exit is reached in 5 steps.
+
+How many steps does it take to reach the exit?
+```
+
+Let's start by trying things out with the test case provided. The jumping "protocol" can be summarized as:
+
+- each jump is based on the number at the current position
+- the new position is equal to the current position + the number at the current position: `new_position <- position + input[position]`
+- the number at the current position increases by 1 once after jump (or trying to): `input[position] <- input[position] + 1`
+- jumping continues until the position is outside the bounds of the "trampolines": `position <= length(input) && position > 0`
+
+We can use `while` to keep jumping until we exit the maze.
+
+```{r}
+input <- c(0, 3, 0, 1, -3)
+
+position <- 1 #starting position
+step <- 0
+
+while(position <= length(input) && position > 0){
+    new_position <- position + input[position]
+    input[position] <- input[position] + 1
+    
+    position <- new_position
+    step <- step + 1
+    print(input)
+}
+
+print(step) #number of steps to reach the exit
+```
+
+Great, it seems to work! But since the puzzle input comes in a slightly awkward format, we need to do a bit of wrangling before we can use it. Here's the top part of mine:
+
+```{r}
+puzzle_input <- "1
+1
+1
+1
+0
+0
+0
+-4
+-1
+0
+-3
+-4
+0
+-9
+-3
+2
+-14
+0
+-17"
+```
+
+Using `str_split`, we can separate the input by line and then convert it from a character string to numeric. Now we just use the code from before the iterate through the jumping process.
+
+```{r warning = FALSE, message = FALSE}
+library(tidyverse)
+input <- str_split(puzzle_input, "\n")[[1]] %>% 
+    as.numeric()
+
+position <- 1 #starting position
+step <- 0
+
+while(position <= length(input) && position > 0){
+    new_position <- position + input[position]
+    input[position] <- input[position] + 1
+    
+    position <- new_position
+    step <- step + 1
+}
+
+print(step)
+```
+
+## Part II
+
+```
+Now, the jumps are even stranger: after each jump, if the offset was three or more, instead decrease it by 1. Otherwise, increase it by 1 as before.
+
+Using this rule with the above example, the process now takes 10 steps, and the offset values after finding the exit are left as 2 3 2 3 -1.
+
+How many steps does it now take to reach the exit?
+```
+
+Everything works the same as before, except now we need to include an if-else clause: if the offset is 3 or more, we _decrease_ by 1 instead of _increasing_.
+
+```{r}
+#part 2 -------------
+#try with test case...
+input <- c(0, 3, 0, 1, -3)
+
+position = 1
+step = 0
+
+while(position <= length(input) && position > 0) {
+    new_position <- position + input[position]
+    
+    #new if-else clause:
+    if (input[position] < 3) {
+        input[position] <- input[position] + 1
+    } else {
+        input[position] <- input[position] - 1
+    }
+    
+    position <- new_position
+    print(input)
+    step <- step + 1
+}
+
+print(step)
+```
+
+It works! Now just enter the puzzle input and that's it!
