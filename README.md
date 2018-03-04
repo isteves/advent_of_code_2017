@@ -14,4 +14,4 @@ Here are the write-ups:
 - [Day 5: A Maze of Twisty Trampolines, All Alike](https://github.com/isteves/advent_of_code_2017/blob/master/05_trampoline.md)
 - [Day 6: Memory Reallocation](https://github.com/isteves/advent_of_code_2017/blob/master/06_reallocation.md)
 
-![](/pics/aoc.png){width=500px}
+![](https://github.com/isteves/advent_of_code_2017/blob/master/pics/aoc.PNG?raw=true){width=500px}
