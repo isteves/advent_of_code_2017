@@ -1,9 +1,4 @@
----
-title: "Advent of Code: Day 3"
-author: "Irene Steves"
-date: "March 3, 2018"
-output: github_document
----
+# Day 3: Spiral Memory
 
 Compared to [Day 3](https://adventofcode.com/2017/day/3), Days 1 and 2 were a breeze! It definitely put that growing coding ego in check.
 

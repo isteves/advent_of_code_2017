@@ -1,9 +1,4 @@
----
-title: "Advent of Code: Day 5"
-author: "Irene Steves"
-date: "March 3, 2018"
-output: github_document
----
+# 5: A Maze of Twisty Trampolines, All Alike
 
 Today is the day for [Day 5](https://adventofcode.com/2017/day/5): a maze of twisty trampolines, all alike!
 

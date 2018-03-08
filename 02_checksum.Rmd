@@ -1,9 +1,4 @@
----
-title: "Advent of Code: Day 2"
-author: "Irene Steves"
-date: "February 16, 2018"
-output: github_document
----
+# 2: Corruption Checksum
 
 Looking back on these challenges, I realize that many (perhaps all?) of these challenges were based on real computer-science concepts and theory!  The `checksum` is one of them...
 
