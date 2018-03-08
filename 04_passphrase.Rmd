@@ -1,4 +1,4 @@
-# 4: High-Entropy Passphrases
+# High-Entropy Passphrases
 
 Let's get down to business with [Day 4](https://adventofcode.com/2017/day/4).
 

@@ -1,4 +1,4 @@
-# 1: Inverse Captcha
+# Inverse Captcha
 
 ## Part I
 

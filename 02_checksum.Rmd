@@ -1,4 +1,4 @@
-# 2: Corruption Checksum
+# Corruption Checksum
 
 Looking back on these challenges, I realize that many (perhaps all?) of these challenges were based on real computer-science concepts and theory!  The `checksum` is one of them...
 

@@ -1,4 +1,4 @@
-# 6: Memory Reallocation
+# Memory Reallocation
 
 In [Day 6](https://adventofcode.com/2017/day/6), Memory Reallocation, the "richest" memory bank (the one with the most blocks) gets its blocks redistributed among the other memory banks. 
 
