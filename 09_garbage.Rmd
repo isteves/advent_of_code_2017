@@ -1,0 +1,135 @@
+# Stream Processing
+
+## Part I
+
+On [Day 9](https://adventofcode.com/2017/day/9), you sit on a stream bank and see a stream of characters filled with "garbage" that you need to parse out. Here's some of the syntax rules paraphrased:
+
+- **groups** begin with { and end with }
+- within a group, there are 0 or more things separated by commas
+    - the "things" can be other groups or garbage
+- } closes the most-recently-opened unclosed group (nesting relationships are possible)
+- **garbage** begins with < and ends with >
+    - anything can appear within a piece of garbage, including { or } or <
+- ! cancels out the next character, which includes <, > or even !
+
+Some examples of garbage:
+
+```
+<>, empty garbage.
+<random characters>, garbage containing random characters.
+<<<<>, because the extra < are ignored.
+<{!>}>, because the first > is canceled.
+<!!>, because the second ! is canceled, allowing the > to terminate the garbage.
+<!!!>>, because the second ! and the first > are canceled.
+<{o"i!a,<{i<a>, which ends at the first >.
+```
+
+Examples of groups:
+
+```
+{}, 1 group.
+{{{}}}, 3 groups.
+{{},{}}, also 3 groups.
+{{{},{},{{}}}}, 6 groups.
+{<{},{},{{}}>}, 1 group (which itself contains garbage).
+{<a>,<a>,<a>,<a>}, 1 group.
+{{<a>},{<a>},{<a>},{<a>}}, 5 groups.
+{{<!>},{<!>},{<!>},{<a>}}, 2 groups (since all but the last > are canceled).
+```
+
+Each group is also worth a different number of points depending on how deeply nested it is. The outermost group gets 1 point, and the next group in gets 2 points, and so on. Example scores include:
+
+```
+{}, score of 1.
+{{{}}}, score of 1 + 2 + 3 = 6.
+{{},{}}, score of 1 + 2 + 2 = 5.
+{{{},{},{{}}}}, score of 1 + 2 + 3 + 3 + 3 + 4 = 16.
+{<a>,<a>,<a>,<a>}, score of 1.
+{{<ab>},{<ab>},{<ab>},{<ab>}}, score of 1 + 2 + 2 + 2 + 2 = 9.
+{{<!!>},{<!!>},{<!!>},{<!!>}}, score of 1 + 2 + 2 + 2 + 2 = 9.
+{{<a!>},{<a!>},{<a!>},{<ab>}}, score of 1 + 2 = 3.
+```
+
+The goal of this exercise is to determine the total score for all groups in the input. Let's start with a test string.
+
+```{r}
+#test string
+string <- "{{<!>},{<!>},{<!>},{<a>}}"
+```
+
+Since `!` cancels out the next character, no matter what it is, we'll start with that. We can use [regular expressions](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf).
+
+```{r}
+string <- str_replace_all(string, "!\\D", "")
+string
+```
+
+To remove the garbage, we can go through our string iteratively and grab the first `<` and first `>` that we find. Once there are no `>` left, we're done with our cleanup process.
+
+```{r}
+while(str_detect(string, ">") == TRUE){
+    garbage_start <- str_locate(string, "<")[1] #first < in seq
+    garbage_end <- str_locate(string, ">")[1] #first > in seq
+    str_sub(string, garbage_start, garbage_end) <- "" #remove garbage
+}
+```
+
+For the last step, we need to add up the points to get our final "score" for the stream of strings. We can set up a `summary` data frame to calculate the number of points each `{` receives. We define positive points (`pospoints`) as any `{` encountered before the `{` of interest. Any `}` encountered before the `{` of interest then contributes negative points. 
+
+```{r}
+#counting {}
+#count { based on position; for every } encountered, minus 1
+summary <- data.frame(locs = str_locate_all(string, "\\{")[[1]][,1],
+                      pospoints = NA,
+                      negpoints = NA)
+
+summary <- summary %>% 
+    as.tibble() %>% 
+    rowwise() %>% 
+    mutate(pospoints = str_count(substr(string, 1, locs), "\\{"),
+           negpoints = str_count(substr(string, 1, locs), "\\}"),
+           points = pospoints - negpoints)
+
+sum(summary$points)
+```
+
+With an easy `sum` function, we can calculate the total score for the stream of strings!
+
+## Part II
+
+In this section, you have to "prove" you removed the garbage by counting what you removed.
+
+```
+The leading and trailing < and > don't count, nor do any canceled characters or the ! doing the canceling.
+
+<>, 0 characters.
+<random characters>, 17 characters.
+<<<<>, 3 characters.
+<{!>}>, 2 characters.
+<!!>, 0 characters.
+<!!!>>, 0 characters.
+<{o"i!a,<{i<a>, 10 characters.
+
+How many non-canceled characters are within the garbage in your puzzle input?
+```
+
+Let's start again with the test string, and remove all cancelled letters. We can then define a new vector `n_garbage` to record the number of characters in each piece of garbage. Once we finish with the process, we just have to sum it up!
+
+```{r}
+string <- "{{<!>},{<!>},{<!>},{<a>}}" %>% 
+    str_replace_all("!\\D", "")
+
+n_garbage <- NULL
+while(str_detect(string, ">") == TRUE){
+    garbage_start <- str_locate(string, "<")[1]
+    garbage_end <- str_locate(string, ">")[1]
+    n_garbage <- c(n_garbage,
+                   nchar(str_sub(string, garbage_start, garbage_end)) - 2)
+    #-2 because < and > don't count
+    
+    str_sub(string, garbage_start, garbage_end) <- ""
+}
+
+sum(n_garbage)
+```
+
