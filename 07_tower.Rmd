@@ -1,0 +1,249 @@
+# Recursive Circus
+
+## Part I
+
+[Day 7](https://adventofcode.com/2017/day/7) can be summarized this way:
+
+- You have a tower made up of programs that are holding each other up in levels
+- You know their names, weights, and what programs they're holding up
+- Part I challenge: you need to determine which program is at the bottom
+
+The following example is provided:
+
+```
+if your list is the following:
+
+pbga (66)
+xhth (57)
+ebii (61)
+havc (66)
+ktlj (57)
+fwft (72) -> ktlj, cntj, xhth
+qoyq (66)
+padx (45) -> pbga, havc, qoyq
+tknk (41) -> ugml, padx, fwft
+jptl (61)
+ugml (68) -> gyxo, ebii, jptl
+gyxo (61)
+cntj (57)
+...then you would be able to recreate the structure of the towers that looks like this:
+
+                gyxo
+              /     
+         ugml - ebii
+       /      \     
+      |         jptl
+      |        
+      |         pbga
+     /        /
+tknk --- padx - havc
+     \        \
+      |         qoyq
+      |             
+      |         ktlj
+       \      /     
+         fwft - cntj
+              \     
+                xhth
+                
+In this example, tknk is at the bottom of the tower (the bottom program), and is
+holding up ugml, padx, and fwft. Those programs are, in turn, holding up other
+programs; in this example, none of those programs are holding up any other programs,
+and are all the tops of their own towers. (The actual tower balancing in front of you
+is much larger.)
+```
+
+Let's start by coding up the example and tidying up the input to make it useable.
+
+```{r warning = FALSE, message = FALSE}
+library(tidyverse)
+
+input <- "pbga (66)
+xhth (57)
+ebii (61)
+havc (66)
+ktlj (57)
+fwft (72) -> ktlj, cntj, xhth
+qoyq (66)
+padx (45) -> pbga, havc, qoyq
+tknk (41) -> ugml, padx, fwft
+jptl (61)
+ugml (68) -> gyxo, ebii, jptl
+gyxo (61)
+cntj (57)"
+
+input_vector <- str_split(input, "\n")[[1]]
+
+input_tidy <- tibble(input = input_vector) %>% 
+    separate(input, into = c("program", "weight"), sep = " [(]") %>% 
+    separate(weight, into = c("weight", "upper"), sep = "[)]") %>% 
+    mutate(weight = as.numeric(weight))
+
+print(input_tidy)
+```
+
+The bottom program is the only program that is not be carried by any other program. In other words, it's the only `program` that does not appear in the `upper` column. Using `str_detect`, we can identify the one program missing from `upper`.
+
+```{r}
+upper_programs <- paste(input_tidy$upper, collapse = " ")
+
+input_tidy %>% 
+    mutate(in_upper = str_detect(upper_programs, 
+                                   pattern = program)) %>% 
+    filter(in_upper == FALSE)
+```
+
+Now pass in the puzzle input and you're good to go! 
+
+## Part II
+
+In this section, we find out that one program is the wrong weight:
+
+```
+The programs explain the situation: they can't get down. Rather, they could get down, if they weren't expending all of their energy trying to keep the tower balanced. Apparently, one program has the wrong weight, and until it's fixed, they're stuck here.
+
+For any program holding a disc, each program standing on that disc forms a sub-tower. Each of those sub-towers are supposed to be the same weight, or the disc itself isn't balanced. The weight of a tower is the sum of the weights of the programs in that tower.
+
+In the example above, this means that for ugml's disc to be balanced, gyxo, ebii, and jptl must all have the same weight, and they do: 61.
+
+However, for tknk to be balanced, each of the programs standing on its disc and all programs above it must each match. This means that the following sums must all be the same:
+
+ugml + (gyxo + ebii + jptl) = 68 + (61 + 61 + 61) = 251
+padx + (pbga + havc + qoyq) = 45 + (66 + 66 + 66) = 243
+fwft + (ktlj + cntj + xhth) = 72 + (57 + 57 + 57) = 243
+As you can see, tknk's disc is unbalanced: ugml's stack is heavier than the other two. Even though the nodes above ugml are balanced, ugml itself is too heavy: it needs to be 8 units lighter for its stack to weigh 243 and keep the towers balanced. If this change were made, its weight would be 60.
+
+Given that exactly one program is the wrong weight, what would its weight need to be to balance the entire tower?
+```
+
+I decided to approach this problem in a step-wise manner. Starting at the top of the tower, I can find the "tips" by looking for programs that aren't carrying other programs.
+
+```{r}
+tips <- input_tidy %>% 
+    filter(upper == "") %>% 
+    select(-upper)
+
+print(tips)
+```
+
+For these programs, their weights are straightforward. Since there are no other programs above them, their cumulative weights (`cum_weight`) are equal to their individual weights.
+
+To determine the cumulative weights of all programs, we can initialize a tibble based on our input, and then fill in the `cum_weights` as we go level-by-level through the tower.
+
+```{r}
+program_index <- input_tidy %>% 
+    select(program, weight) %>% 
+    mutate(cum_weight = NA)
+```
+
+To start, we can input the weights of the `tips` into the `program_index`.
+
+```{r}
+program_index <- program_index %>% 
+    rowwise() %>% 
+    mutate(cum_weight = ifelse(program %in% tips$program,
+                               tips$weight[tips$program == program],
+                               NA))
+print(program_index)
+```
+
+We can also define our `bases` variable, that includes all programs with unknown cumulative weights (`cum_weight`).
+
+```{r}
+bases <- input_tidy %>% 
+    filter(upper != "") %>% 
+    mutate(upper = str_replace(upper, " -> ", "")) %>% 
+    separate_rows(upper, sep = ", ")
+```
+
+We can then define some functions to do the following:
+
+- `calculate_weights`: calculate weights of programs whose "upper" programs have cum_weights already calculated
+- `add_cumweight_index`: add the `cum_weight` for newly calculated base programs into the program_index
+- `remove_bases`: remove bases whose `cum_weight`s are now known from the `bases` variable
+
+```{r}
+calculate_weights <- function(bases, program_index) {
+    #bases = tibble with program, weight, and upper columns
+    #program_index = tibble with program, weight, cum_weight columns
+    
+    bases %>% 
+        rowwise() %>% 
+        mutate(upper_weight = program_index$cum_weight[program_index$program == upper]) %>% 
+        ungroup %>% 
+        group_by(program) %>% 
+        summarise(cum_upper_weight = sum(upper_weight), #sum up weights of upper programs
+                  base_weight = mean(weight)) %>% #keep weight of program holding ^ up
+        mutate(cum_weight = cum_upper_weight + base_weight) %>% 
+        na.omit()
+    #returns only programs whose weights could be calculated
+}
+
+add_cumweight_index <- function(bases_calc, program_index) {
+    #bases_calc = output of calculate_weights function
+    #program_index = index of program weights to add new base weights to
+    
+    program_index %>% 
+        rowwise() %>% 
+        mutate(cum_weight = ifelse(program %in% bases_calc$program,
+                                   bases_calc$cum_weight[bases_calc$program == program],
+                                   cum_weight))
+    #returns updated program_index
+}
+
+remove_bases <- function(bases, bases_calc) { 
+    #bases = original variable with all programs with unknown cumulative weights
+    #bases_calc = bases to remove (those that were calculated)
+
+    bases %>% 
+        filter(!(program %in% bases_calc$program))
+    #returns programs that still have unknown cumulative weights
+}
+```
+
+With these functions, we can then run through our sample input once to check it:
+
+```{r}
+bases_calc <- calculate_weights(bases, program_index)
+new_index <- add_cumweight_index(bases_calc, program_index)
+print(new_index)
+new_bases <- remove_bases(bases, bases_calc)
+print(new_bases)
+```
+
+It looks good! Now we just make some small modifications to the variable names so that we can loop through it until we've calculated `cum_weight`s for all bases. (I've also saved `bases` to `bases2` and `program_index` to `program_index2` to leave the original variable untouched.)
+
+```{r check-bases}
+bases2 <- bases
+program_index2 <- program_index
+while(nrow(bases2) > 0){
+    bases_calc <- calculate_weights(bases2, program_index2)
+    program_index2 <- add_cumweight_index(bases_calc, program_index2)
+    bases2 <- remove_bases(bases2, bases_calc)
+}
+
+print(program_index2)
+```
+
+Now that the `program_index` (2) is filled out, we can use some summarization tricks to determine which program is causing all the problems.
+
+```{r last-chunk}
+bases %>% 
+    rowwise() %>% 
+    #add in weights of all the "upper" programs
+    mutate(upper_weight = program_index2$cum_weight[program_index2$program == upper]) %>%
+    
+    #instead of rowwise, now group by program
+    ungroup() %>% group_by(program) %>% 
+    
+    #determine the number of unique upper_weights for each program
+    #if any program has >1 unique upper_weight, we know that it's holding up the faulty package
+    summarize(n_unique_upper = length(unique(upper_weight)),
+              uppers = paste(upper, collapse = " "),
+              upper_weights = paste(upper_weight, collapse = " ")) %>% 
+    filter(n_unique_upper != 1)
+```
+
+Here, we see that the `ugml` program causes the tower to be unbalanced. Instead of weighing 251, it should weight 243.
+
+All that's left is to try it with the puzzle input!
