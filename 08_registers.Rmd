@@ -1,0 +1,137 @@
+# I Heard You Like Registers
+
+## Part I
+
+[Day 8](https://adventofcode.com/2017/day/8) is essentially a list of conditionally instructions how to modify different "registers," which all start at 0. Here's the example given:
+
+```
+b inc 5 if a > 1
+a inc 1 if b < 5
+c dec -10 if a >= 1
+c inc -20 if c == 10
+
+These instructions would be processed as follows:
+
+Because a starts at 0, it is not greater than 1, and so b is not modified.
+a is increased by 1 (to 1) because b is less than 5 (it is 0).
+c is decreased by -10 (to 10) because a is now greater than or equal to 1 (it is 1).
+c is increased by -20 (to -10) because c is equal to 10.
+After this process, the largest value in any register is 1.
+```
+
+And from these instructions, we want to determine: "What is the largest value in any register after completing the instructions in your puzzle input?"
+
+As usual, we start with the simple test case to build up the code. First, that some tidying is required:
+
+```{r}
+input <- "b inc 5 if a > 1
+a inc 1 if b < 5
+c dec -10 if a >= 1
+c inc -20 if c == 10"
+
+input_tidy <- tibble(input = unlist(str_split(input, "\n"))) %>% 
+    separate(input, into = c("action", "condition"), sep = " if ") %>% 
+    separate(action, into = c("var", "action", "val"), sep = " ")
+print(input_tidy)
+```
+
+For this example, we have 3 possible variables that may be changing at each step. We'll store the values for each step in a dataframe with columns "a", "b", and "c", starting with 0 for each variable. At the end, all we need to do to answer the puzzle question is look through the data frame for the biggest number (`max(df)`).
+
+```{r}
+names <- c("a", "b", "c")
+df <- data.frame(matrix(0, ncol = length(names), nrow = 1))
+colnames(df) <- names
+```
+
+Now we need take action, specifically:
+
+1. translate the `action` to something mathematically meaningful ("inc" = `+ val`, "dec" = `- val`)
+2. evaluate the condition provided and perform the `action` if the condition is TRUE
+3. go through each step sequentially
+
+These two helper functions can help us with that:
+
+```{r}
+paste_special <- function(var, action, val) {
+    #pastes the action into a string that R can then evaluate
+    #for example, the first row above becomes "df$b + 5"
+    if(action == "inc"){
+        string <- paste("df$", var, "+", val, sep = "")
+    } else {
+        string <- paste("df$", var, "-", val, sep = "")
+    }
+}
+
+eval_string <- function(string) {
+    #this helps us to evaluate a string, such as the one above
+    eval(parse(text = string))
+}
+```
+
+
+
+```{r}
+for(i in 1:nrow(input_tidy)){
+    #grab variables (doing this mostly for readability)
+    var <- input_tidy$var[i]
+    action <- input_tidy$action[i]
+    val <- input_tidy$val[i]
+    
+    #add "df$" in front of the condition to make it easy to evaluate
+    #for example, "df$" + "b < 5" is "df$b < 5"
+    condition <- paste0("df$", input_tidy$condition[i])
+    
+    if(eval_string(condition)){ #if this condition is true..
+        #evaluate the action & save into the data frame
+        df[var] <- eval_string(paste_special(var, action, val)) 
+    }
+}
+
+print(df)
+max(df)
+```
+
+Once we do this, we can test it out on our puzzle input! For the puzzle input, there are wayyy more names, so we need to extract them intelligently. In addition, some of the variables in the conditional statements are never acted upon. In other words, we need to merge the `var` column of `input_tidy` with the variables in the conditional statements.
+
+
+```{r}
+names <- input_tidy %>% as.tibble() %>% 
+    separate(condition, into = c("var2", "sign", "val2"), sep = " ") %>% 
+    gather(c(var, var2), key=var, value=names) %>% 
+    distinct(names) %>% 
+    pull(names)
+```
+
+And that's it! It's puzzle-ready.
+
+## Part II
+
+```
+To be safe, the CPU also needs to know the highest value held in any register during this process so that it can decide how much memory to allocate to these operations. For example, in the above instructions, the highest value ever held was 10 (in register c after the third instruction was evaluated).
+```
+
+Now since we want to know the highest value ever, we'll save our biggest answer to the variable `big_ans`.
+
+```{r}
+big_ans <- 0
+
+for(i in 1:nrow(input_tidy)){
+    var <- input_tidy$var[i]
+    action <- input_tidy$action[i]
+    val <- input_tidy$val[i]
+    condition <- paste0("df$", input_tidy$condition[i])
+    
+    if(eval_string(condition)){ 
+        ans <- eval_string(paste_special(var, action, val))
+        df[var] <- ans
+        
+        if(ans > big_ans){
+            big_ans <- ans
+        }
+    }
+}
+
+print(big_ans)
+```
+
+In our example, the `big_ans` is on the small side, but this code should work even for large data sets!
