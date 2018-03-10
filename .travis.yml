@@ -5,6 +5,8 @@ cache: packages
 script:
   - Rscript -e 'bookdown::render_book("index.Rmd", "bookdown::gitbook")'
 deploy:
+  edge:
+    branch: v1.8.47
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN #set in travis-ci dashboard
