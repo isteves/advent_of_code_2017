@@ -14,6 +14,118 @@ description: "Solutions for R Users & tidyverse lovers."
 
 The 2017 Advent of Code may already be two months behind us, but I figured it's still not too late to write up some of my solutions for the challenge. It was my first time participating, and I managed to finish about 10 of them before the holiday festivities (and thesis writing) caught up with me.
 
-As almost purely an R User, my answers are all R based. It may not be the neatest for certain puzzles, but you can always make it work somehow! Upon re-visiting my code, I've also tried to tidy it up and use `dplyr` and other `tidyverse` tools when I can.
+As almost purely an R User, my answers are all R based. It may not be the neatest for certain puzzles, but you can always make it work somehow! Upon re-visiting my code, I've also tried to tidy it up and use `dplyr` and other `tidyverse` tools when I can. For the most part, I've omitted `library(tidyverse)`; you can assume that I've got the tidyverse loaded for the solutions!
 
 ![](https://github.com/isteves/advent_of_code_2017/blob/master/pics/aoc.PNG?raw=true)
+
+# Some data exploration {-}
+
+I was curious about whether the relative difficulty of the puzzles was uniform across users. In other words, are difficult puzzles difficult for everyone? 
+
+Specifically, I was cared about my own experience: puzzle #3, for example, was fun but also maddening! To investigate this question, **I used the length of my raw code as a proxy for difficulty:**
+
+```{r message = FALSE, error = FALSE, warning = FALSE}
+library(tidyverse)
+library(R.utils)
+
+file_stats <- tibble(file_name = list.files("raw", pattern = ".R")) %>% 
+    mutate(puzzle_no = 1:10) %>% 
+    rowwise() %>% 
+    mutate(n_lines = countLines(paste0("raw/", file_name))[1])
+
+print(file_stats)
+```
+
+Here's a quick look at what that looks like:
+
+```{r}
+irene_plot <- file_stats %>% 
+    ggplot(aes(x = puzzle_no, y = n_lines)) +
+    geom_line() + 
+    geom_point() +
+    scale_x_continuous(breaks = 1:10,
+                       minor_breaks = NULL) +
+    xlab("Puzzle day") + ylab("# lines of code") +
+    theme_bw()
+
+print(irene_plot)
+```
+
+From this, it appears that puzzles on day 1 and 2 were super simple, and days 3 and 7 were the toughies. *Note:* day 10 is only half finished, and it wasn't because it was too easy...
+
+Now let's take a look at the [Advent of Code leaderboard](https://adventofcode.com/2017/leaderboard/day/1). This lists the first 100 people to get both stars (solve both halves of the puzzle) and the first 100 people to get the first star. These are the super speedsters, who apparently can whiz through these puzzles in minutes! We'll use the `RCurl` package to help us grab the info:
+
+```{r message = FALSE, warning = FALSE}
+library(RCurl)
+
+get_aoc_stats <- function(day) {
+    #grab source code from leaderboard page for day specified
+    url <- paste0("https://adventofcode.com/2017/leaderboard/day/", day)
+    leaderboard <- getURL(url)
+    
+    #extract times
+    times <- str_extract_all(leaderboard, 
+                             pattern = "\\d\\d:\\d\\d:\\d\\d")[[1]]
+    #includes both first 100 to get both stars and first 100 to get 1st star
+    
+    #return data frame with day, time to get both stars, and time to get one star
+    data.frame(day = day,
+               both_stars = times[1:100],
+               one_star = times[101:200])
+}
+
+#apply this function to get Advent of Code leaderboard stats for days 1-10
+aoc_stats <- lapply(1:10, get_aoc_stats)
+
+#combine list of data frames into one giant data frame.
+aoc_stats_combined <- do.call(rbind, aoc_stats)
+print(head(aoc_stats_combined))
+```
+
+We can tidy up our data a bit using `tidyr`, `dplyr`, and `lubridate`, and then plot it using `ggplot`/`ggridges`.
+
+```{r warning = FALSE, message = FALSE}
+library(lubridate)
+library(ggridges)
+
+aoc_stats_tidy <- aoc_stats_combined %>% 
+    as.tibble() %>% 
+    
+    #change both_stars and one_star from factor to character to combine
+    mutate(both_stars = as.character(both_stars), 
+           one_star = as.character(one_star)) %>% 
+    gather(key = stars, value = time, -day) %>% 
+    
+    #prep time for graphing... 
+    mutate(time = hms(time), 
+           time_min = as.numeric(time)/60,
+           day = as.factor(day))
+
+ggplot(aoc_stats_tidy) +
+    geom_density_ridges(aes(y = fct_rev(day), x = time_min, 
+                            fill = stars, alpha = .9)) +
+    theme_bw() +
+    ylab("Puzzle day") + xlab("Time (minutes)") +
+    scale_y_discrete(expand = c(0.01, 0)) +
+    guides(alpha = FALSE)
+```
+
+According to these times, the whiz coders also found puzzles 3, 7, and 10 to be difficult. We can use the more traditional box-plot to make the comparison with my lines of code more directly. 
+
+```{r warning = FALSE, message = FALSE}
+library(cowplot)
+
+aoc_plot <- aoc_stats_tidy %>% 
+    filter(stars == "both_stars") %>% 
+    ggplot() +
+    geom_boxplot(aes(x = day, y = time_min)) +
+    xlab("Puzzle day") + ylab("Time (min)") +
+    theme_bw()
+
+plot_grid(aoc_plot, irene_plot, ncol = 1, align = "v")
+
+```
+
+And there you have it! How quickly the whizzes solved difficult puzzles was extremely variable, but on average, the time it took them matched the number of lines of code I wrote.
+
+> All puzzles are equal, but some puzzles are more equal than others.
