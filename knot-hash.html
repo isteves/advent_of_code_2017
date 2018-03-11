@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Advent of Code 2017</title>
+  <meta name="description" content="Solutions for R Users &amp; tidyverse lovers.">
+  <meta name="generator" content="bookdown 0.7.1 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Advent of Code 2017" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://isteves.github.io/advent_of_code_2017/" />
+  
+  <meta property="og:description" content="Solutions for R Users &amp; tidyverse lovers." />
+  <meta name="github-repo" content="isteves/advent_of_code_2017" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Advent of Code 2017" />
+  
+  <meta name="twitter:description" content="Solutions for R Users &amp; tidyverse lovers." />
+  
+
+<meta name="author" content="Irene Steves">
+
+
+<meta name="date" content="2018-03-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="stream-processing.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Advent of Code 2017</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="some-data-exploration.html"><a href="some-data-exploration.html"><i class="fa fa-check"></i>Some data exploration</a></li>
+<li class="chapter" data-level="1" data-path="inverse-captcha.html"><a href="inverse-captcha.html"><i class="fa fa-check"></i><b>1</b> Inverse Captcha</a><ul>
+<li class="chapter" data-level="1.1" data-path="inverse-captcha.html"><a href="inverse-captcha.html#part-i"><i class="fa fa-check"></i><b>1.1</b> Part I</a></li>
+<li class="chapter" data-level="1.2" data-path="inverse-captcha.html"><a href="inverse-captcha.html#part-ii"><i class="fa fa-check"></i><b>1.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="corruption-checksum.html"><a href="corruption-checksum.html"><i class="fa fa-check"></i><b>2</b> Corruption Checksum</a><ul>
+<li class="chapter" data-level="2.1" data-path="corruption-checksum.html"><a href="corruption-checksum.html#part-i-1"><i class="fa fa-check"></i><b>2.1</b> Part I</a></li>
+<li class="chapter" data-level="2.2" data-path="corruption-checksum.html"><a href="corruption-checksum.html#part-ii-1"><i class="fa fa-check"></i><b>2.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="spiral-memory.html"><a href="spiral-memory.html"><i class="fa fa-check"></i><b>3</b> Spiral Memory</a><ul>
+<li class="chapter" data-level="3.1" data-path="spiral-memory.html"><a href="spiral-memory.html#part-i-2"><i class="fa fa-check"></i><b>3.1</b> Part I</a></li>
+<li class="chapter" data-level="3.2" data-path="spiral-memory.html"><a href="spiral-memory.html#part-ii-2"><i class="fa fa-check"></i><b>3.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="high-entropy-passphrases.html"><a href="high-entropy-passphrases.html"><i class="fa fa-check"></i><b>4</b> High-Entropy Passphrases</a><ul>
+<li class="chapter" data-level="4.1" data-path="high-entropy-passphrases.html"><a href="high-entropy-passphrases.html#part-i-3"><i class="fa fa-check"></i><b>4.1</b> Part I</a></li>
+<li class="chapter" data-level="4.2" data-path="high-entropy-passphrases.html"><a href="high-entropy-passphrases.html#part-ii-3"><i class="fa fa-check"></i><b>4.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="a-maze-of-twisty-trampolines-all-alike.html"><a href="a-maze-of-twisty-trampolines-all-alike.html"><i class="fa fa-check"></i><b>5</b> A Maze of Twisty Trampolines, All Alike</a><ul>
+<li class="chapter" data-level="5.1" data-path="a-maze-of-twisty-trampolines-all-alike.html"><a href="a-maze-of-twisty-trampolines-all-alike.html#part-i-4"><i class="fa fa-check"></i><b>5.1</b> Part I</a></li>
+<li class="chapter" data-level="5.2" data-path="a-maze-of-twisty-trampolines-all-alike.html"><a href="a-maze-of-twisty-trampolines-all-alike.html#part-ii-4"><i class="fa fa-check"></i><b>5.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="memory-reallocation.html"><a href="memory-reallocation.html"><i class="fa fa-check"></i><b>6</b> Memory Reallocation</a><ul>
+<li class="chapter" data-level="6.1" data-path="memory-reallocation.html"><a href="memory-reallocation.html#part-i-5"><i class="fa fa-check"></i><b>6.1</b> Part I</a></li>
+<li class="chapter" data-level="6.2" data-path="memory-reallocation.html"><a href="memory-reallocation.html#part-ii-5"><i class="fa fa-check"></i><b>6.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="recursive-circus.html"><a href="recursive-circus.html"><i class="fa fa-check"></i><b>7</b> Recursive Circus</a><ul>
+<li class="chapter" data-level="7.1" data-path="recursive-circus.html"><a href="recursive-circus.html#part-i-6"><i class="fa fa-check"></i><b>7.1</b> Part I</a></li>
+<li class="chapter" data-level="7.2" data-path="recursive-circus.html"><a href="recursive-circus.html#part-ii-6"><i class="fa fa-check"></i><b>7.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="i-heard-you-like-registers.html"><a href="i-heard-you-like-registers.html"><i class="fa fa-check"></i><b>8</b> I Heard You Like Registers</a><ul>
+<li class="chapter" data-level="8.1" data-path="i-heard-you-like-registers.html"><a href="i-heard-you-like-registers.html#part-i-7"><i class="fa fa-check"></i><b>8.1</b> Part I</a></li>
+<li class="chapter" data-level="8.2" data-path="i-heard-you-like-registers.html"><a href="i-heard-you-like-registers.html#part-ii-7"><i class="fa fa-check"></i><b>8.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="stream-processing.html"><a href="stream-processing.html"><i class="fa fa-check"></i><b>9</b> Stream Processing</a><ul>
+<li class="chapter" data-level="9.1" data-path="stream-processing.html"><a href="stream-processing.html#part-i-8"><i class="fa fa-check"></i><b>9.1</b> Part I</a></li>
+<li class="chapter" data-level="9.2" data-path="stream-processing.html"><a href="stream-processing.html#part-ii-8"><i class="fa fa-check"></i><b>9.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="knot-hash.html"><a href="knot-hash.html"><i class="fa fa-check"></i><b>10</b> Knot Hash</a><ul>
+<li class="chapter" data-level="10.1" data-path="knot-hash.html"><a href="knot-hash.html#part-i-9"><i class="fa fa-check"></i><b>10.1</b> Part I</a></li>
+<li class="chapter" data-level="10.2" data-path="knot-hash.html"><a href="knot-hash.html#part-ii-9"><i class="fa fa-check"></i><b>10.2</b> Part II</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Advent of Code 2017</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="knot-hash" class="section level1">
+<h1><span class="header-section-number">Day 10</span> Knot Hash</h1>
+<div id="part-i-9" class="section level2">
+<h2><span class="header-section-number">10.1</span> Part I</h2>
+<p>On <a href="https://adventofcode.com/2017/day/10">Day 10</a>, you discover elves trying to develop a kind of knot-hash system.</p>
+<pre><code>This hash function simulates tying a knot in a circle of string with 256 marks on it. Based on the input to be hashed, the function repeatedly selects a span of string, brings the ends together, and gives the span a half-twist to reverse the order of the marks within it. After doing this many times, the order of the marks is used to build the resulting hash.
+
+  4--5   pinch   4  5           4   1
+ /    \  5,0,1  / \/ \  twist  / \ / \
+3      0  --&gt;  3      0  --&gt;  3   X   0
+ \    /         \ /\ /         \ / \ /
+  2--1           2  1           2   5
+  
+To achieve this, begin with a list of numbers from 0 to 255, a current position which begins at 0 (the first element in the list), a skip size (which starts at 0), and a sequence of lengths (your puzzle input). Then, for each length:
+
+- Reverse the order of that length of elements in the list, starting with the element at the current position.
+- Move the current position forward by that length plus the skip size.
+- Increase the skip size by one.
+- The list is circular; if the current position and the length try to reverse elements beyond the end of the list, the operation reverses using as many extra elements as it needs from the front of the list. If the current position moves past the end of the list, it wraps around to the front. Lengths larger than the size of the list are invalid.</code></pre>
+<p>We start with a smaller list for testing and check against the example in full puzzle description.</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" data-line-number="1">elements &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb142-2" data-line-number="2">lengths &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">5</span>)</a></code></pre></div>
+<p>We can now write out our steps in code, like below:</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" data-line-number="1">skip_size &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb143-2" data-line-number="2">curr_pos &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co">#current position</span></a>
+<a class="sourceLine" id="cb143-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb143-4" data-line-number="4"><span class="cf">for</span>(i <span class="cf">in</span> lengths){ <span class="co">#for each of the lengths provided</span></a>
+<a class="sourceLine" id="cb143-5" data-line-number="5">    i =<span class="st"> </span>i <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="co">#make it easier to work with:</span></a>
+<a class="sourceLine" id="cb143-6" data-line-number="6">    <span class="co">#ex: length 3 means (curr_pos, curr_pos + 1, curr_pos + 2)</span></a>
+<a class="sourceLine" id="cb143-7" data-line-number="7">    <span class="co">#2 = 3 - 1</span></a>
+<a class="sourceLine" id="cb143-8" data-line-number="8">    </a>
+<a class="sourceLine" id="cb143-9" data-line-number="9">    <span class="cf">if</span>(i <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>){</a>
+<a class="sourceLine" id="cb143-10" data-line-number="10">        curr_pos &lt;-<span class="st"> </span>curr_pos <span class="op">%%</span><span class="st"> </span><span class="kw">length</span>(elements) <span class="co">#give a value within range</span></a>
+<a class="sourceLine" id="cb143-11" data-line-number="11">        </a>
+<a class="sourceLine" id="cb143-12" data-line-number="12">        <span class="co">#twist segment</span></a>
+<a class="sourceLine" id="cb143-13" data-line-number="13">        <span class="cf">if</span>(curr_pos <span class="op">+</span><span class="st"> </span>i <span class="op">&lt;=</span><span class="st"> </span><span class="kw">length</span>(elements)){ <span class="co">#if looping not needed</span></a>
+<a class="sourceLine" id="cb143-14" data-line-number="14">            </a>
+<a class="sourceLine" id="cb143-15" data-line-number="15">            <span class="co">#extract sublist of loop to twist</span></a>
+<a class="sourceLine" id="cb143-16" data-line-number="16">            sublist &lt;-<span class="st"> </span>elements[curr_pos<span class="op">:</span>(curr_pos <span class="op">+</span><span class="st"> </span>i)]</a>
+<a class="sourceLine" id="cb143-17" data-line-number="17">            </a>
+<a class="sourceLine" id="cb143-18" data-line-number="18">            <span class="co">#now twist and put it back!</span></a>
+<a class="sourceLine" id="cb143-19" data-line-number="19">            elements[curr_pos<span class="op">:</span>(curr_pos <span class="op">+</span><span class="st"> </span>i)] &lt;-<span class="st"> </span>sublist[<span class="kw">length</span>(sublist)<span class="op">:</span><span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb143-20" data-line-number="20">            </a>
+<a class="sourceLine" id="cb143-21" data-line-number="21">        } <span class="cf">else</span> { <span class="co">#if the segment loops...</span></a>
+<a class="sourceLine" id="cb143-22" data-line-number="22">            end_pos &lt;-<span class="st"> </span>(curr_pos <span class="op">+</span><span class="st"> </span>i) <span class="op">%%</span><span class="st"> </span><span class="kw">length</span>(elements)</a>
+<a class="sourceLine" id="cb143-23" data-line-number="23">            </a>
+<a class="sourceLine" id="cb143-24" data-line-number="24">            <span class="co">#extract segments from end and beg and combine</span></a>
+<a class="sourceLine" id="cb143-25" data-line-number="25">            seg1 &lt;-<span class="st"> </span>elements[curr_pos<span class="op">:</span><span class="kw">length</span>(elements)]</a>
+<a class="sourceLine" id="cb143-26" data-line-number="26">            seg2 &lt;-<span class="st"> </span>elements[<span class="dv">1</span><span class="op">:</span>end_pos]</a>
+<a class="sourceLine" id="cb143-27" data-line-number="27">            sublist &lt;-<span class="st"> </span><span class="kw">c</span>(seg1, seg2)</a>
+<a class="sourceLine" id="cb143-28" data-line-number="28">            </a>
+<a class="sourceLine" id="cb143-29" data-line-number="29">            <span class="co">#twist it!</span></a>
+<a class="sourceLine" id="cb143-30" data-line-number="30">            elem_twist &lt;-<span class="st"> </span>sublist[<span class="kw">length</span>(sublist)<span class="op">:</span><span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb143-31" data-line-number="31">            </a>
+<a class="sourceLine" id="cb143-32" data-line-number="32">            <span class="co">#put back into loop</span></a>
+<a class="sourceLine" id="cb143-33" data-line-number="33">            elements[curr_pos<span class="op">:</span><span class="kw">length</span>(elements)] &lt;-<span class="st"> </span>elem_twist[<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(seg1)]</a>
+<a class="sourceLine" id="cb143-34" data-line-number="34">            elements[<span class="dv">1</span><span class="op">:</span>end_pos] &lt;-<span class="st"> </span>elem_twist[(<span class="kw">length</span>(seg1) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span><span class="kw">length</span>(elem_twist)]                </a>
+<a class="sourceLine" id="cb143-35" data-line-number="35">        }</a>
+<a class="sourceLine" id="cb143-36" data-line-number="36">    }</a>
+<a class="sourceLine" id="cb143-37" data-line-number="37">    curr_pos &lt;-<span class="st"> </span>curr_pos <span class="op">+</span><span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>skip_size</a>
+<a class="sourceLine" id="cb143-38" data-line-number="38">    skip_size &lt;-<span class="st"> </span>skip_size <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb143-39" data-line-number="39">}</a></code></pre></div>
+<p>What we’re really curious about though, is the result of multiplying the first two numbers in the list. We get:</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" data-line-number="1">elements[<span class="dv">1</span>] <span class="op">*</span><span class="st"> </span>elements[<span class="dv">2</span>]</a></code></pre></div>
+<pre><code>## [1] 12</code></pre>
+<p>Variables make it easy to just replace the test with the puzzle input and run through the script again!</p>
+</div>
+<div id="part-ii-9" class="section level2">
+<h2><span class="header-section-number">10.2</span> Part II</h2>
+<p>Part II is a bit more involved, and requires additional steps/conversions:</p>
+<ol style="list-style-type: decimal">
+<li>Turn every character in input (lengths) into <a href="https://en.wikipedia.org/wiki/ASCII#Printable_characters">ASCII code</a></li>
+<li>Add these to end: 17, 31, 73, 47, 23</li>
+<li>Run 64 rounds, keep <code>lengths</code>/<code>curr_pos</code>/<code>skip_size</code> for each round</li>
+<li>Reduce ordered numbers (“sparse hash”) to dense hash</li>
+<li><a href="https://en.wikipedia.org/wiki/Bitwise_operation#XOR">XOR</a> blocks of 16 –&gt; get 16 numbers</li>
+</ol>
+<p>I learned a lot about computer science/encryption, which is both confusing and fascinating at the same time. It’s like these people were professional puzzle makers!</p>
+<p>Unfortunately, I never finished this one, so I’ll end my puzzle-spree here and save it for another rainy day (which in southern California, may be a long ways away…).</p>
+<p><sub>fin</sub>
+:umbrella: :whale2:</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="stream-processing.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

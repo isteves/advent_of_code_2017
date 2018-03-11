@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Advent of Code 2017</title>
+  <meta name="description" content="Solutions for R Users &amp; tidyverse lovers.">
+  <meta name="generator" content="bookdown 0.7.1 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Advent of Code 2017" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://isteves.github.io/advent_of_code_2017/" />
+  
+  <meta property="og:description" content="Solutions for R Users &amp; tidyverse lovers." />
+  <meta name="github-repo" content="isteves/advent_of_code_2017" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Advent of Code 2017" />
+  
+  <meta name="twitter:description" content="Solutions for R Users &amp; tidyverse lovers." />
+  
+
+<meta name="author" content="Irene Steves">
+
+
+<meta name="date" content="2018-03-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="corruption-checksum.html">
+<link rel="next" href="high-entropy-passphrases.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Advent of Code 2017</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="some-data-exploration.html"><a href="some-data-exploration.html"><i class="fa fa-check"></i>Some data exploration</a></li>
+<li class="chapter" data-level="1" data-path="inverse-captcha.html"><a href="inverse-captcha.html"><i class="fa fa-check"></i><b>1</b> Inverse Captcha</a><ul>
+<li class="chapter" data-level="1.1" data-path="inverse-captcha.html"><a href="inverse-captcha.html#part-i"><i class="fa fa-check"></i><b>1.1</b> Part I</a></li>
+<li class="chapter" data-level="1.2" data-path="inverse-captcha.html"><a href="inverse-captcha.html#part-ii"><i class="fa fa-check"></i><b>1.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="corruption-checksum.html"><a href="corruption-checksum.html"><i class="fa fa-check"></i><b>2</b> Corruption Checksum</a><ul>
+<li class="chapter" data-level="2.1" data-path="corruption-checksum.html"><a href="corruption-checksum.html#part-i-1"><i class="fa fa-check"></i><b>2.1</b> Part I</a></li>
+<li class="chapter" data-level="2.2" data-path="corruption-checksum.html"><a href="corruption-checksum.html#part-ii-1"><i class="fa fa-check"></i><b>2.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="spiral-memory.html"><a href="spiral-memory.html"><i class="fa fa-check"></i><b>3</b> Spiral Memory</a><ul>
+<li class="chapter" data-level="3.1" data-path="spiral-memory.html"><a href="spiral-memory.html#part-i-2"><i class="fa fa-check"></i><b>3.1</b> Part I</a></li>
+<li class="chapter" data-level="3.2" data-path="spiral-memory.html"><a href="spiral-memory.html#part-ii-2"><i class="fa fa-check"></i><b>3.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="high-entropy-passphrases.html"><a href="high-entropy-passphrases.html"><i class="fa fa-check"></i><b>4</b> High-Entropy Passphrases</a><ul>
+<li class="chapter" data-level="4.1" data-path="high-entropy-passphrases.html"><a href="high-entropy-passphrases.html#part-i-3"><i class="fa fa-check"></i><b>4.1</b> Part I</a></li>
+<li class="chapter" data-level="4.2" data-path="high-entropy-passphrases.html"><a href="high-entropy-passphrases.html#part-ii-3"><i class="fa fa-check"></i><b>4.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="a-maze-of-twisty-trampolines-all-alike.html"><a href="a-maze-of-twisty-trampolines-all-alike.html"><i class="fa fa-check"></i><b>5</b> A Maze of Twisty Trampolines, All Alike</a><ul>
+<li class="chapter" data-level="5.1" data-path="a-maze-of-twisty-trampolines-all-alike.html"><a href="a-maze-of-twisty-trampolines-all-alike.html#part-i-4"><i class="fa fa-check"></i><b>5.1</b> Part I</a></li>
+<li class="chapter" data-level="5.2" data-path="a-maze-of-twisty-trampolines-all-alike.html"><a href="a-maze-of-twisty-trampolines-all-alike.html#part-ii-4"><i class="fa fa-check"></i><b>5.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="memory-reallocation.html"><a href="memory-reallocation.html"><i class="fa fa-check"></i><b>6</b> Memory Reallocation</a><ul>
+<li class="chapter" data-level="6.1" data-path="memory-reallocation.html"><a href="memory-reallocation.html#part-i-5"><i class="fa fa-check"></i><b>6.1</b> Part I</a></li>
+<li class="chapter" data-level="6.2" data-path="memory-reallocation.html"><a href="memory-reallocation.html#part-ii-5"><i class="fa fa-check"></i><b>6.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="recursive-circus.html"><a href="recursive-circus.html"><i class="fa fa-check"></i><b>7</b> Recursive Circus</a><ul>
+<li class="chapter" data-level="7.1" data-path="recursive-circus.html"><a href="recursive-circus.html#part-i-6"><i class="fa fa-check"></i><b>7.1</b> Part I</a></li>
+<li class="chapter" data-level="7.2" data-path="recursive-circus.html"><a href="recursive-circus.html#part-ii-6"><i class="fa fa-check"></i><b>7.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="i-heard-you-like-registers.html"><a href="i-heard-you-like-registers.html"><i class="fa fa-check"></i><b>8</b> I Heard You Like Registers</a><ul>
+<li class="chapter" data-level="8.1" data-path="i-heard-you-like-registers.html"><a href="i-heard-you-like-registers.html#part-i-7"><i class="fa fa-check"></i><b>8.1</b> Part I</a></li>
+<li class="chapter" data-level="8.2" data-path="i-heard-you-like-registers.html"><a href="i-heard-you-like-registers.html#part-ii-7"><i class="fa fa-check"></i><b>8.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="stream-processing.html"><a href="stream-processing.html"><i class="fa fa-check"></i><b>9</b> Stream Processing</a><ul>
+<li class="chapter" data-level="9.1" data-path="stream-processing.html"><a href="stream-processing.html#part-i-8"><i class="fa fa-check"></i><b>9.1</b> Part I</a></li>
+<li class="chapter" data-level="9.2" data-path="stream-processing.html"><a href="stream-processing.html#part-ii-8"><i class="fa fa-check"></i><b>9.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="knot-hash.html"><a href="knot-hash.html"><i class="fa fa-check"></i><b>10</b> Knot Hash</a><ul>
+<li class="chapter" data-level="10.1" data-path="knot-hash.html"><a href="knot-hash.html#part-i-9"><i class="fa fa-check"></i><b>10.1</b> Part I</a></li>
+<li class="chapter" data-level="10.2" data-path="knot-hash.html"><a href="knot-hash.html#part-ii-9"><i class="fa fa-check"></i><b>10.2</b> Part II</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Advent of Code 2017</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="spiral-memory" class="section level1">
+<h1><span class="header-section-number">Day 3</span> Spiral Memory</h1>
+<p>Compared to <a href="https://adventofcode.com/2017/day/3">Day 3</a>, Days 1 and 2 were a breeze! It definitely put that growing coding ego in check.</p>
+<div id="part-i-2" class="section level2">
+<h2><span class="header-section-number">3.1</span> Part I</h2>
+<pre><code>You come across an experimental new kind of memory stored on an infinite two-dimensional
+grid.
+
+Each square on the grid is allocated in a spiral pattern starting at a location marked 
+1 and then counting up while spiraling outward. For example, the first few squares are
+allocated like this:
+
+17  16  15  14  13
+18   5   4   3  12
+19   6   1   2  11
+20   7   8   9  10
+21  22  23---&gt; ...
+While this is very space-efficient (no squares are skipped), requested data must be
+carried back to square 1 (the location of the only access port for this memory system)
+by programs that can only move up, down, left, or right. They always take the shortest
+path: the Manhattan Distance between the location of the data and square 1.
+
+For example:
+
+Data from square 1 is carried 0 steps, since it&#39;s at the access port.
+Data from square 12 is carried 3 steps, such as: down, left, left.
+Data from square 23 is carried only 2 steps: up twice.
+Data from square 1024 must be carried 31 steps.
+How many steps are required to carry the data from the square identified in your puzzle
+input all the way to the access port?</code></pre>
+<p>After chasing down a few dead ends, I came up with this approach:</p>
+<p>Since we care primarily about position, we can re-write our spiral from above as steps from the center (zero):</p>
+<pre><code>6   5   4   3   4   5   6
+5   4   3   2   3   4   5
+4   3   2   1   2   3   4
+3   2   1   0   1   2   3
+4   3   2   1   2   3   4
+5   4   3   2   3   4   5
+6   5   4   3   4  --&gt;</code></pre>
+<p>We can think of these numbers as a series of successive square-shaped frames around 0. If we write it out for each frame, then we get:</p>
+<pre><code>Frame 1: 0
+Frame 2: 1 2 1 2 1 2 1 2
+Frame 3: 3 2 3 4 3 2 3 4 3 2 3 4 3 2 3 4
+Frame 4: 5 4 3 4 5 6 5 4 3 4 5 6 5 4 3 4 5 6 5 4 3 4 5 6
+Frame n: .....</code></pre>
+<p>From this, we see that:</p>
+<ul>
+<li>Each frame (after frame 1) ends with an even number, specifically, <span class="math inline">\(2(n - 1)\)</span></li>
+<li>Each frame (after 1) starts with an odd number, specifically, one less than the even number: <span class="math inline">\(2(n - 1) - 1\)</span> = <span class="math inline">\(2n - 3\)</span></li>
+<li>The minimum number of steps in each frame is equal to <span class="math inline">\(n - 1\)</span></li>
+<li>The maximum number of steps is equal to the last number in the frame, or <span class="math inline">\(2(n - 1)\)</span></li>
+<li>Except for frame 1, the number of digits in each frame is divisible by 4 (since there are four sides in a frame)</li>
+</ul>
+<pre><code>Frame 1: 0
+Frame 2: (1 2) (1 2) (1 2) (1 2)
+Frame 3: (3 2 3 4) (3 2 3 4) (3 2 3 4) (3 2 3 4)
+Frame 4: (5 4 3 4 5 6) (5 4 3 4 5 6) (5 4 3 4 5 6) (5 4 3 4 5 6)</code></pre>
+<p>Now, we can start pulling some of these patterns together:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">steps &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">frame =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">max_steps =</span> <span class="dv">2</span><span class="op">*</span>(frame <span class="op">-</span><span class="st"> </span><span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb32-4" data-line-number="4">           <span class="dt">min_steps =</span> frame <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb32-5" data-line-number="5">           <span class="dt">start_steps =</span> max_steps <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb32-6" data-line-number="6">           <span class="dt">end_steps =</span> max_steps) </a>
+<a class="sourceLine" id="cb32-7" data-line-number="7"><span class="kw">print</span>(steps)</a></code></pre></div>
+<pre><code>## # A tibble: 10 x 5
+##    frame max_steps min_steps start_steps end_steps
+##    &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+##  1     1        0.        0.         -1.        0.
+##  2     2        2.        1.          1.        2.
+##  3     3        4.        2.          3.        4.
+##  4     4        6.        3.          5.        6.
+##  5     5        8.        4.          7.        8.
+##  6     6       10.        5.          9.       10.
+##  7     7       12.        6.         11.       12.
+##  8     8       14.        7.         13.       14.
+##  9     9       16.        8.         15.       16.
+## 10    10       18.        9.         17.       18.</code></pre>
+<p>Except for the first frames, we know that for each side, the number of steps starts at some number (<code>start_steps</code>), decreases by one until it gets to the minimum number of steps (<code>min_steps</code>), and then increases by one until it gets to the end, or maximum, number of steps (<code>end_steps</code> or <code>max_steps</code>). Repeat this four times and we have the whole sequence of steps for each frame.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">positions &lt;-<span class="st"> </span>steps <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="st">    </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb34-3" data-line-number="3"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">seq =</span> <span class="kw">paste</span>(<span class="kw">c</span>(start_steps<span class="op">:</span>min_steps, (min_steps <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>end_steps), </a>
+<a class="sourceLine" id="cb34-4" data-line-number="4">                       <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>),</a>
+<a class="sourceLine" id="cb34-5" data-line-number="5">           <span class="dt">seq4 =</span> <span class="kw">paste</span>(<span class="kw">rep</span>(seq, <span class="dv">4</span>), <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb34-6" data-line-number="6"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">seq4 =</span> <span class="kw">replace</span>(seq4, frame <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dv">0</span>)) <span class="op">%&gt;%</span><span class="st">  </span><span class="co">#replace square 1&#39;s sequence with 0</span></a>
+<a class="sourceLine" id="cb34-7" data-line-number="7"><span class="st">    </span><span class="kw">select</span>(seq4)</a>
+<a class="sourceLine" id="cb34-8" data-line-number="8"><span class="kw">print</span>(positions)</a></code></pre></div>
+<pre><code>## Source: local data frame [10 x 1]
+## Groups: &lt;by row&gt;
+## 
+## # A tibble: 10 x 1
+##    seq4                                                                   
+##    &lt;chr&gt;                                                                  
+##  1 0                                                                      
+##  2 1 2 1 2 1 2 1 2                                                        
+##  3 3 2 3 4 3 2 3 4 3 2 3 4 3 2 3 4                                        
+##  4 5 4 3 4 5 6 5 4 3 4 5 6 5 4 3 4 5 6 5 4 3 4 5 6                        
+##  5 7 6 5 4 5 6 7 8 7 6 5 4 5 6 7 8 7 6 5 4 5 6 7 8 7 6 5 4 5 6 7 8        
+##  6 9 8 7 6 5 6 7 8 9 10 9 8 7 6 5 6 7 8 9 10 9 8 7 6 5 6 7 8 9 10 9 8 7 6…
+##  7 11 10 9 8 7 6 7 8 9 10 11 12 11 10 9 8 7 6 7 8 9 10 11 12 11 10 9 8 7 …
+##  8 13 12 11 10 9 8 7 8 9 10 11 12 13 14 13 12 11 10 9 8 7 8 9 10 11 12 13…
+##  9 15 14 13 12 11 10 9 8 9 10 11 12 13 14 15 16 15 14 13 12 11 10 9 8 9 1…
+## 10 17 16 15 14 13 12 11 10 9 10 11 12 13 14 15 16 17 18 17 16 15 14 13 12…</code></pre>
+<p>If we now paste it all together as a long string (with a tiny bit of base R), and then separate out again into a vector of integers, we can answer the puzzle question!</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">str_c</span>(positions<span class="op">$</span>seq4, <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="st">    </span><span class="kw">str_split</span>(<span class="st">&quot; &quot;</span>, <span class="dt">simplify =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb36-3" data-line-number="3"><span class="st">    </span><span class="kw">as.numeric</span>()</a></code></pre></div>
+<pre><code>##   [1]  0  1  2  1  2  1  2  1  2  3  2  3  4  3  2  3  4  3  2  3  4  3  2
+##  [24]  3  4  5  4  3  4  5  6  5  4  3  4  5  6  5  4  3  4  5  6  5  4  3
+##  [47]  4  5  6  7  6  5  4  5  6  7  8  7  6  5  4  5  6  7  8  7  6  5  4
+##  [70]  5  6  7  8  7  6  5  4  5  6  7  8  9  8  7  6  5  6  7  8  9 10  9
+##  [93]  8  7  6  5  6  7  8  9 10  9  8  7  6  5  6  7  8  9 10  9  8  7  6
+## [116]  5  6  7  8  9 10 11 10  9  8  7  6  7  8  9 10 11 12 11 10  9  8  7
+## [139]  6  7  8  9 10 11 12 11 10  9  8  7  6  7  8  9 10 11 12 11 10  9  8
+## [162]  7  6  7  8  9 10 11 12 13 12 11 10  9  8  7  8  9 10 11 12 13 14 13
+## [185] 12 11 10  9  8  7  8  9 10 11 12 13 14 13 12 11 10  9  8  7  8  9 10
+## [208] 11 12 13 14 13 12 11 10  9  8  7  8  9 10 11 12 13 14 15 14 13 12 11
+## [231] 10  9  8  9 10 11 12 13 14 15 16 15 14 13 12 11 10  9  8  9 10 11 12
+## [254] 13 14 15 16 15 14 13 12 11 10  9  8  9 10 11 12 13 14 15 16 15 14 13
+## [277] 12 11 10  9  8  9 10 11 12 13 14 15 16 17 16 15 14 13 12 11 10  9 10
+## [300] 11 12 13 14 15 16 17 18 17 16 15 14 13 12 11 10  9 10 11 12 13 14 15
+## [323] 16 17 18 17 16 15 14 13 12 11 10  9 10 11 12 13 14 15 16 17 18 17 16
+## [346] 15 14 13 12 11 10  9 10 11 12 13 14 15 16 17 18</code></pre>
+<p>We can’t quite get to the puzzle answer with just the first 10 frames, so we’ll have to expand our scope a little. Let’s pull everything together in one giant pipe:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">positions500 &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">frame =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">500</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">max_steps =</span> <span class="dv">2</span><span class="op">*</span>(frame <span class="op">-</span><span class="st"> </span><span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb38-3" data-line-number="3">           <span class="dt">min_steps =</span> frame <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb38-4" data-line-number="4">           <span class="dt">start_steps =</span> max_steps <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb38-5" data-line-number="5">           <span class="dt">end_steps =</span> max_steps) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb38-6" data-line-number="6"><span class="st">    </span></a>
+<a class="sourceLine" id="cb38-7" data-line-number="7"><span class="st">    </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb38-8" data-line-number="8"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">seq =</span> <span class="kw">paste</span>(<span class="kw">c</span>(start_steps<span class="op">:</span>min_steps, (min_steps <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>end_steps), </a>
+<a class="sourceLine" id="cb38-9" data-line-number="9">                       <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>),</a>
+<a class="sourceLine" id="cb38-10" data-line-number="10">           <span class="dt">seq4 =</span> <span class="kw">paste</span>(<span class="kw">rep</span>(seq, <span class="dv">4</span>), <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb38-11" data-line-number="11"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">seq4 =</span> <span class="kw">replace</span>(seq4, frame <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dv">0</span>)) <span class="op">%&gt;%</span><span class="st">  </span><span class="co">#replace frame 1&#39;s sequence with 0</span></a>
+<a class="sourceLine" id="cb38-12" data-line-number="12"><span class="st">    </span><span class="kw">select</span>(seq4) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb38-13" data-line-number="13"><span class="st">    </span></a>
+<a class="sourceLine" id="cb38-14" data-line-number="14"><span class="st">    </span><span class="kw">str_c</span>(<span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#see </span><span class="al">NOTE</span></a>
+<a class="sourceLine" id="cb38-15" data-line-number="15"><span class="st">    </span><span class="kw">str_extract_all</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">d+&quot;</span>, <span class="dt">simplify =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb38-16" data-line-number="16"><span class="st">    </span><span class="kw">as.numeric</span>()</a></code></pre></div>
+<p><em>Note:</em> Directly using <code>str_c</code> on the tibble, rather than subsetting the column using something like <code>tibble$seq4</code> results in the inclusion of some special characters. So, rather than <code>str_split</code> at all spaces (&quot; “), we can extract all digits instead (using this handy <a href="https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf">basic regular expressions in R cheatsheet</a>).
+<em>Note 2:</em> After writing this, I discovered the <code>separate_rows</code> function which does the same thing much more elegantly (see part II for use).</p>
+<p>Let’s run some tests to make sure it works!</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">positions500[<span class="dv">12</span>] <span class="op">==</span><span class="st"> </span><span class="dv">3</span>; positions500[<span class="dv">23</span>] <span class="op">==</span><span class="st"> </span><span class="dv">2</span>; positions500[<span class="dv">1024</span>] <span class="op">==</span><span class="st"> </span><span class="dv">31</span></a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>:satisfied: :star2: :fireworks:</p>
+</div>
+<div id="part-ii-2" class="section level2">
+<h2><span class="header-section-number">3.2</span> Part II</h2>
+<p>For this section, they make things a bit more complicated…it’s no longer only about position.</p>
+<pre><code>As a stress test on the system, the programs here clear the grid and then store the value 1 in square 1. Then, in the same allocation order as shown above, they store the sum of the values in all adjacent squares, including diagonals.
+
+So, the first few squares&#39; values are chosen as follows:
+
+Square 1 starts with the value 1.
+Square 2 has only one adjacent filled square (with value 1), so it also stores 1.
+Square 3 has both of the above squares as neighbors and stores the sum of their values, 2.
+Square 4 has all three of the aforementioned squares as neighbors and stores the sum of their values, 4.
+Square 5 only has the first and fourth squares as neighbors, so it gets the value 5.
+Once a square is written, its value does not change. Therefore, the first few squares would receive the following values:
+
+147  142  133  122   59
+304    5    4    2   57
+330   10    1    1   54
+351   11   23   25   26
+362  747  806---&gt;   ...
+
+What is the first value written that is larger than your puzzle input?</code></pre>
+<p>For this part of the puzzle, it seemed easiest to me to simply go through and build this spiral up from the ground. To start, we need to understand how the spiral moves in terms of coordinates. If we take the center position to be (0, 0), then the next position is (1, 0), then (1, 1), and so on:</p>
+<pre><code>17  16  15  14  13
+18   5   4   3  12
+19   6   1   2  11
+20   7   8   9  10
+21  22  23---&gt; ...
+
+1 = (0, 0)
+2 = (1, 0)
+3 = (1, 1)
+4 = (0, 1)
+5 = (-1, 1)
+6 = (-1, 0)
+7 = (-1, -1)
+8 = (0, -1)
+9 = (1, -1)
+10 = (2, -1)
+11 = (2, 0)
+12 = (2, 1)
+13 = (2, 2)
+14 = (1, 2)
+15 = (0, 2)</code></pre>
+<p>Let’s write it out as a data frame:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">position =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2">                 <span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb45-3" data-line-number="3">                 <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb45-4" data-line-number="4">df</a></code></pre></div>
+<pre><code>##    position  x  y
+## 1         1  0  0
+## 2         2  1  0
+## 3         3  1  1
+## 4         4  0  1
+## 5         5 -1  1
+## 6         6 -1  0
+## 7         7 -1 -1
+## 8         8  0 -1
+## 9         9  1 -1
+## 10       10  2 -1
+## 11       11  2  0
+## 12       12  2  1
+## 13       13  2  2
+## 14       14  1  2
+## 15       15  0  2</code></pre>
+<p>Now let’s look at the change in x and y:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">df <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb47-2" data-line-number="2"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">start_x =</span> <span class="kw">c</span>(<span class="ot">NA</span>, x[<span class="op">-</span><span class="dv">15</span>]),</a>
+<a class="sourceLine" id="cb47-3" data-line-number="3">           <span class="dt">start_y =</span> <span class="kw">c</span>(<span class="ot">NA</span>, y[<span class="op">-</span><span class="dv">15</span>]),</a>
+<a class="sourceLine" id="cb47-4" data-line-number="4">           <span class="dt">diff_x =</span> x <span class="op">-</span><span class="st"> </span>start_x,</a>
+<a class="sourceLine" id="cb47-5" data-line-number="5">           <span class="dt">diff_y =</span> y <span class="op">-</span><span class="st"> </span>start_y) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb47-6" data-line-number="6"><span class="st">    </span><span class="kw">select</span>(position, diff_x, diff_y)</a></code></pre></div>
+<pre><code>##    position diff_x diff_y
+## 1         1     NA     NA
+## 2         2      1      0
+## 3         3      0      1
+## 4         4     -1      0
+## 5         5     -1      0
+## 6         6      0     -1
+## 7         7      0     -1
+## 8         8      1      0
+## 9         9      1      0
+## 10       10      1      0
+## 11       11      0      1
+## 12       12      0      1
+## 13       13      0      1
+## 14       14     -1      0
+## 15       15     -1      0</code></pre>
+<p>From this, we can see clearly that:</p>
+<ol style="list-style-type: decimal">
+<li>Every change in position is at most 1 step</li>
+<li>When x changes, y does not change (and vice versa)</li>
+<li>The number of steps flips between series of +1’s and -1’s (with zeros in between)</li>
+<li>The number of repeats expands by one each time: one 1, one 0, two -1’s, two 0’s, three 1’s, three 0’s….</li>
+</ol>
+<p>I decided to take advantage of these patterns to build up a spiral, step-by-step. I went the for-loop route the first time around:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">total_x &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>){</a>
+<a class="sourceLine" id="cb49-3" data-line-number="3">    vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>((<span class="op">-</span><span class="dv">1</span>)<span class="op">^</span>(i<span class="op">+</span><span class="dv">1</span>), <span class="dt">times =</span> i), </a>
+<a class="sourceLine" id="cb49-4" data-line-number="4">                <span class="kw">rep</span>(<span class="dv">0</span>, <span class="dt">times =</span> i))</a>
+<a class="sourceLine" id="cb49-5" data-line-number="5">    <span class="co"># i + 1 helps us alternate between +1 and -1</span></a>
+<a class="sourceLine" id="cb49-6" data-line-number="6">    <span class="co"># we increase the number of times it repeats by one each time we loop</span></a>
+<a class="sourceLine" id="cb49-7" data-line-number="7">    total_x &lt;-<span class="st"> </span><span class="kw">c</span>(total_x, vector)</a>
+<a class="sourceLine" id="cb49-8" data-line-number="8">}</a>
+<a class="sourceLine" id="cb49-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb49-10" data-line-number="10">total_y &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb49-11" data-line-number="11"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>){</a>
+<a class="sourceLine" id="cb49-12" data-line-number="12">    vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>, i), <span class="kw">rep</span>((<span class="op">-</span><span class="dv">1</span>)<span class="op">^</span>(i<span class="op">+</span><span class="dv">1</span>), i)) <span class="co">#start with 0 for y</span></a>
+<a class="sourceLine" id="cb49-13" data-line-number="13">    total_y &lt;-<span class="st"> </span><span class="kw">c</span>(total_y, vector)</a>
+<a class="sourceLine" id="cb49-14" data-line-number="14">}</a>
+<a class="sourceLine" id="cb49-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb49-16" data-line-number="16">xy &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,total_x),</a>
+<a class="sourceLine" id="cb49-17" data-line-number="17">                 <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">0</span>,total_y))</a>
+<a class="sourceLine" id="cb49-18" data-line-number="18"><span class="kw">head</span>(xy)</a></code></pre></div>
+<pre><code>##    x  y
+## 1  0  0
+## 2  1  0
+## 3  0  1
+## 4 -1  0
+## 5 -1  0
+## 6  0 -1</code></pre>
+<p>Upon returning to this, I tidyversed it:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">xy &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">i =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="st">    </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-3" data-line-number="3"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">x =</span> <span class="kw">str_c</span>(<span class="kw">c</span>(<span class="kw">rep</span>((<span class="op">-</span><span class="dv">1</span>)<span class="op">^</span>(i<span class="op">+</span><span class="dv">1</span>), i), <span class="kw">rep</span>(<span class="dv">0</span>, i)), </a>
+<a class="sourceLine" id="cb51-4" data-line-number="4">                     <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>),</a>
+<a class="sourceLine" id="cb51-5" data-line-number="5">           <span class="dt">y =</span> <span class="kw">str_c</span>(<span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>, i), <span class="kw">rep</span>((<span class="op">-</span><span class="dv">1</span>)<span class="op">^</span>(i<span class="op">+</span><span class="dv">1</span>), i)), </a>
+<a class="sourceLine" id="cb51-6" data-line-number="6">                     <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb51-7" data-line-number="7"><span class="st">    </span><span class="kw">separate_rows</span>(x<span class="op">:</span>y, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb51-8" data-line-number="8"><span class="kw">head</span>(xy)</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##       i     x     y
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt;
+## 1     1     1     0
+## 2     1     0     1
+## 3     2    -1     0
+## 4     2    -1     0
+## 5     2     0    -1
+## 6     2     0    -1</code></pre>
+<p>Let’s test this out on a small matrix to make sure the spiral builds correctly.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">grid &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb53-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb53-3" data-line-number="3">i =<span class="st"> </span><span class="dv">3</span>; j =<span class="st"> </span><span class="dv">3</span> <span class="co">#starting point (origin)</span></a>
+<a class="sourceLine" id="cb53-4" data-line-number="4"><span class="cf">for</span>(n <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>){</a>
+<a class="sourceLine" id="cb53-5" data-line-number="5">    i &lt;-<span class="st"> </span>i <span class="op">-</span><span class="st"> </span>xy<span class="op">$</span>y[n]</a>
+<a class="sourceLine" id="cb53-6" data-line-number="6">    j &lt;-<span class="st"> </span>j <span class="op">+</span><span class="st"> </span>xy<span class="op">$</span>x[n]</a>
+<a class="sourceLine" id="cb53-7" data-line-number="7">    grid[i, j] &lt;-<span class="st"> </span>n</a>
+<a class="sourceLine" id="cb53-8" data-line-number="8">    <span class="kw">print</span>(grid) <span class="co">#just to see that we&#39;re doing this right</span></a>
+<a class="sourceLine" id="cb53-9" data-line-number="9">}</a></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]   NA   NA   NA   NA   NA
+## [2,]   NA   NA   NA   NA   NA
+## [3,]   NA   NA   NA    1   NA
+## [4,]   NA   NA   NA   NA   NA
+## [5,]   NA   NA   NA   NA   NA
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]   NA   NA   NA   NA   NA
+## [2,]   NA   NA   NA    2   NA
+## [3,]   NA   NA   NA    1   NA
+## [4,]   NA   NA   NA   NA   NA
+## [5,]   NA   NA   NA   NA   NA
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]   NA   NA   NA   NA   NA
+## [2,]   NA   NA    3    2   NA
+## [3,]   NA   NA   NA    1   NA
+## [4,]   NA   NA   NA   NA   NA
+## [5,]   NA   NA   NA   NA   NA
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]   NA   NA   NA   NA   NA
+## [2,]   NA    4    3    2   NA
+## [3,]   NA   NA   NA    1   NA
+## [4,]   NA   NA   NA   NA   NA
+## [5,]   NA   NA   NA   NA   NA
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]   NA   NA   NA   NA   NA
+## [2,]   NA    4    3    2   NA
+## [3,]   NA    5   NA    1   NA
+## [4,]   NA   NA   NA   NA   NA
+## [5,]   NA   NA   NA   NA   NA
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]   NA   NA   NA   NA   NA
+## [2,]   NA    4    3    2   NA
+## [3,]   NA    5   NA    1   NA
+## [4,]   NA    6   NA   NA   NA
+## [5,]   NA   NA   NA   NA   NA
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]   NA   NA   NA   NA   NA
+## [2,]   NA    4    3    2   NA
+## [3,]   NA    5   NA    1   NA
+## [4,]   NA    6    7   NA   NA
+## [5,]   NA   NA   NA   NA   NA
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]   NA   NA   NA   NA   NA
+## [2,]   NA    4    3    2   NA
+## [3,]   NA    5   NA    1   NA
+## [4,]   NA    6    7    8   NA
+## [5,]   NA   NA   NA   NA   NA
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]   NA   NA   NA   NA   NA
+## [2,]   NA    4    3    2   NA
+## [3,]   NA    5   NA    1   NA
+## [4,]   NA    6    7    8    9
+## [5,]   NA   NA   NA   NA   NA
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]   NA   NA   NA   NA   NA
+## [2,]   NA    4    3    2   NA
+## [3,]   NA    5   NA    1   10
+## [4,]   NA    6    7    8    9
+## [5,]   NA   NA   NA   NA   NA</code></pre>
+<p>It seems to work! Now instead of inputting the step number to the grid, let’s do some addition:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">grid &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="dv">7</span>, <span class="dt">ncol =</span> <span class="dv">7</span>) <span class="co">#start with a slightly larger grid</span></a>
+<a class="sourceLine" id="cb55-2" data-line-number="2">i =<span class="st"> </span><span class="dv">4</span>; j =<span class="st"> </span><span class="dv">4</span> <span class="co">#origin coordinates</span></a>
+<a class="sourceLine" id="cb55-3" data-line-number="3">grid[i, j] &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co">#define origin as 1</span></a>
+<a class="sourceLine" id="cb55-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb55-5" data-line-number="5"><span class="cf">for</span>(n <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="dv">20</span>){ <span class="co">#starts at 2 since we already defined the origin</span></a>
+<a class="sourceLine" id="cb55-6" data-line-number="6">    i &lt;-<span class="st"> </span>i <span class="op">-</span><span class="st"> </span>xy<span class="op">$</span>y[n]</a>
+<a class="sourceLine" id="cb55-7" data-line-number="7">    j &lt;-<span class="st"> </span>j <span class="op">+</span><span class="st"> </span>xy<span class="op">$</span>x[n]</a>
+<a class="sourceLine" id="cb55-8" data-line-number="8">    </a>
+<a class="sourceLine" id="cb55-9" data-line-number="9">    <span class="co">#get sum of neighbors</span></a>
+<a class="sourceLine" id="cb55-10" data-line-number="10">    neighbors &lt;-<span class="st"> </span>grid[(i <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>(i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>), (j <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>(j <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)]</a>
+<a class="sourceLine" id="cb55-11" data-line-number="11">    sum_neighbors &lt;-<span class="st"> </span><span class="kw">sum</span>(neighbors, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb55-12" data-line-number="12">    </a>
+<a class="sourceLine" id="cb55-13" data-line-number="13">    grid[i, j] &lt;-<span class="st"> </span>sum_neighbors</a>
+<a class="sourceLine" id="cb55-14" data-line-number="14">}</a></code></pre></div>
+<p>Again, it seems to work! Now to answer the puzzle, I’ll expand the grid and also save the output as a vector.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">grid &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="dv">1001</span>, <span class="dt">ncol =</span> <span class="dv">1001</span>)</a>
+<a class="sourceLine" id="cb56-2" data-line-number="2">i =<span class="st"> </span><span class="dv">501</span>; j =<span class="st"> </span><span class="dv">501</span></a>
+<a class="sourceLine" id="cb56-3" data-line-number="3">grid[i, j] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb56-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb56-5" data-line-number="5">v_sum_neighbors &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">length =</span> <span class="dv">1000</span>)</a>
+<a class="sourceLine" id="cb56-6" data-line-number="6"><span class="cf">for</span>(n <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="dv">1000</span>){</a>
+<a class="sourceLine" id="cb56-7" data-line-number="7">    i &lt;-<span class="st"> </span>i <span class="op">-</span><span class="st"> </span>xy<span class="op">$</span>y[n]</a>
+<a class="sourceLine" id="cb56-8" data-line-number="8">    j &lt;-<span class="st"> </span>j <span class="op">+</span><span class="st"> </span>xy<span class="op">$</span>x[n]</a>
+<a class="sourceLine" id="cb56-9" data-line-number="9">    </a>
+<a class="sourceLine" id="cb56-10" data-line-number="10">    neighbors &lt;-<span class="st"> </span>grid[(i <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>(i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>), (j <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>(j <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)]</a>
+<a class="sourceLine" id="cb56-11" data-line-number="11">    sum_neighbors &lt;-<span class="st"> </span><span class="kw">sum</span>(neighbors, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb56-12" data-line-number="12">    </a>
+<a class="sourceLine" id="cb56-13" data-line-number="13">    grid[i, j] &lt;-<span class="st"> </span>sum_neighbors</a>
+<a class="sourceLine" id="cb56-14" data-line-number="14">    v_sum_neighbors[n] &lt;-<span class="st"> </span>sum_neighbors</a>
+<a class="sourceLine" id="cb56-15" data-line-number="15">}</a></code></pre></div>
+<p>Now we’re ready to answer the puzzle question: What is the first value written that is larger than your puzzle input?</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">puzzle_input &lt;-<span class="st"> </span><span class="dv">312051</span></a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="kw">head</span>(v_sum_neighbors[v_sum_neighbors <span class="op">&gt;</span><span class="st"> </span>puzzle_input], <span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## [1] 322952</code></pre>
+<p>Voila! and that’s it! Another challenge down. :trophy:</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="corruption-checksum.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="high-entropy-passphrases.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

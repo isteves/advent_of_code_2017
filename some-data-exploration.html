@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Advent of Code 2017</title>
+  <meta name="description" content="Solutions for R Users &amp; tidyverse lovers.">
+  <meta name="generator" content="bookdown 0.7.1 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Advent of Code 2017" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://isteves.github.io/advent_of_code_2017/" />
+  
+  <meta property="og:description" content="Solutions for R Users &amp; tidyverse lovers." />
+  <meta name="github-repo" content="isteves/advent_of_code_2017" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Advent of Code 2017" />
+  
+  <meta name="twitter:description" content="Solutions for R Users &amp; tidyverse lovers." />
+  
+
+<meta name="author" content="Irene Steves">
+
+
+<meta name="date" content="2018-03-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="inverse-captcha.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Advent of Code 2017</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="some-data-exploration.html"><a href="some-data-exploration.html"><i class="fa fa-check"></i>Some data exploration</a></li>
+<li class="chapter" data-level="1" data-path="inverse-captcha.html"><a href="inverse-captcha.html"><i class="fa fa-check"></i><b>1</b> Inverse Captcha</a><ul>
+<li class="chapter" data-level="1.1" data-path="inverse-captcha.html"><a href="inverse-captcha.html#part-i"><i class="fa fa-check"></i><b>1.1</b> Part I</a></li>
+<li class="chapter" data-level="1.2" data-path="inverse-captcha.html"><a href="inverse-captcha.html#part-ii"><i class="fa fa-check"></i><b>1.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="corruption-checksum.html"><a href="corruption-checksum.html"><i class="fa fa-check"></i><b>2</b> Corruption Checksum</a><ul>
+<li class="chapter" data-level="2.1" data-path="corruption-checksum.html"><a href="corruption-checksum.html#part-i-1"><i class="fa fa-check"></i><b>2.1</b> Part I</a></li>
+<li class="chapter" data-level="2.2" data-path="corruption-checksum.html"><a href="corruption-checksum.html#part-ii-1"><i class="fa fa-check"></i><b>2.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="spiral-memory.html"><a href="spiral-memory.html"><i class="fa fa-check"></i><b>3</b> Spiral Memory</a><ul>
+<li class="chapter" data-level="3.1" data-path="spiral-memory.html"><a href="spiral-memory.html#part-i-2"><i class="fa fa-check"></i><b>3.1</b> Part I</a></li>
+<li class="chapter" data-level="3.2" data-path="spiral-memory.html"><a href="spiral-memory.html#part-ii-2"><i class="fa fa-check"></i><b>3.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="high-entropy-passphrases.html"><a href="high-entropy-passphrases.html"><i class="fa fa-check"></i><b>4</b> High-Entropy Passphrases</a><ul>
+<li class="chapter" data-level="4.1" data-path="high-entropy-passphrases.html"><a href="high-entropy-passphrases.html#part-i-3"><i class="fa fa-check"></i><b>4.1</b> Part I</a></li>
+<li class="chapter" data-level="4.2" data-path="high-entropy-passphrases.html"><a href="high-entropy-passphrases.html#part-ii-3"><i class="fa fa-check"></i><b>4.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="a-maze-of-twisty-trampolines-all-alike.html"><a href="a-maze-of-twisty-trampolines-all-alike.html"><i class="fa fa-check"></i><b>5</b> A Maze of Twisty Trampolines, All Alike</a><ul>
+<li class="chapter" data-level="5.1" data-path="a-maze-of-twisty-trampolines-all-alike.html"><a href="a-maze-of-twisty-trampolines-all-alike.html#part-i-4"><i class="fa fa-check"></i><b>5.1</b> Part I</a></li>
+<li class="chapter" data-level="5.2" data-path="a-maze-of-twisty-trampolines-all-alike.html"><a href="a-maze-of-twisty-trampolines-all-alike.html#part-ii-4"><i class="fa fa-check"></i><b>5.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="memory-reallocation.html"><a href="memory-reallocation.html"><i class="fa fa-check"></i><b>6</b> Memory Reallocation</a><ul>
+<li class="chapter" data-level="6.1" data-path="memory-reallocation.html"><a href="memory-reallocation.html#part-i-5"><i class="fa fa-check"></i><b>6.1</b> Part I</a></li>
+<li class="chapter" data-level="6.2" data-path="memory-reallocation.html"><a href="memory-reallocation.html#part-ii-5"><i class="fa fa-check"></i><b>6.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="recursive-circus.html"><a href="recursive-circus.html"><i class="fa fa-check"></i><b>7</b> Recursive Circus</a><ul>
+<li class="chapter" data-level="7.1" data-path="recursive-circus.html"><a href="recursive-circus.html#part-i-6"><i class="fa fa-check"></i><b>7.1</b> Part I</a></li>
+<li class="chapter" data-level="7.2" data-path="recursive-circus.html"><a href="recursive-circus.html#part-ii-6"><i class="fa fa-check"></i><b>7.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="i-heard-you-like-registers.html"><a href="i-heard-you-like-registers.html"><i class="fa fa-check"></i><b>8</b> I Heard You Like Registers</a><ul>
+<li class="chapter" data-level="8.1" data-path="i-heard-you-like-registers.html"><a href="i-heard-you-like-registers.html#part-i-7"><i class="fa fa-check"></i><b>8.1</b> Part I</a></li>
+<li class="chapter" data-level="8.2" data-path="i-heard-you-like-registers.html"><a href="i-heard-you-like-registers.html#part-ii-7"><i class="fa fa-check"></i><b>8.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="stream-processing.html"><a href="stream-processing.html"><i class="fa fa-check"></i><b>9</b> Stream Processing</a><ul>
+<li class="chapter" data-level="9.1" data-path="stream-processing.html"><a href="stream-processing.html#part-i-8"><i class="fa fa-check"></i><b>9.1</b> Part I</a></li>
+<li class="chapter" data-level="9.2" data-path="stream-processing.html"><a href="stream-processing.html#part-ii-8"><i class="fa fa-check"></i><b>9.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="knot-hash.html"><a href="knot-hash.html"><i class="fa fa-check"></i><b>10</b> Knot Hash</a><ul>
+<li class="chapter" data-level="10.1" data-path="knot-hash.html"><a href="knot-hash.html#part-i-9"><i class="fa fa-check"></i><b>10.1</b> Part I</a></li>
+<li class="chapter" data-level="10.2" data-path="knot-hash.html"><a href="knot-hash.html#part-ii-9"><i class="fa fa-check"></i><b>10.2</b> Part II</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Advent of Code 2017</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="some-data-exploration" class="section level1 unnumbered">
+<h1>Some data exploration</h1>
+<p>I was curious about whether the relative difficulty of the puzzles was uniform across users. In other words, are difficult puzzles difficult for everyone?</p>
+<p>Specifically, I was cared about my own experience: puzzle #3, for example, was fun but also maddening! To investigate this question, <strong>I used the length of my raw code as a proxy for difficulty:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(R.utils)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">file_stats &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">file_name =</span> <span class="kw">list.files</span>(<span class="st">&quot;raw&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;.R&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">puzzle_no =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="st">    </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">n_lines =</span> <span class="kw">countLines</span>(<span class="kw">paste0</span>(<span class="st">&quot;raw/&quot;</span>, file_name))[<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw">print</span>(file_stats)</a></code></pre></div>
+<pre><code>## Source: local data frame [10 x 3]
+## Groups: &lt;by row&gt;
+## 
+## # A tibble: 10 x 3
+##    file_name                puzzle_no n_lines
+##    &lt;chr&gt;                        &lt;int&gt;   &lt;int&gt;
+##  1 01_long_number_doubles.R         1      26
+##  2 02_checksum.R                    2      33
+##  3 03_number_swirl.R                3     113
+##  4 04_valid_passcode.R              4      54
+##  5 05_escape.R                      5      71
+##  6 06_memory_banks.R                6      59
+##  7 07_discs_towers.R                7     166
+##  8 08_instructions.R                8      50
+##  9 09_garbage.R                     9      54
+## 10 10_codes.R                      10      53</code></pre>
+<p>Here’s a quick look at what that looks like:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">irene_plot &lt;-<span class="st"> </span>file_stats <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> puzzle_no, <span class="dt">y =</span> n_lines)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">    </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">                       <span class="dt">minor_breaks =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Puzzle day&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;# lines of code&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="st">    </span><span class="kw">theme_bw</span>()</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="kw">print</span>(irene_plot)</a></code></pre></div>
+<p><img src="aoc-2017_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>From this, it appears that puzzles on day 1 and 2 were super simple, and days 3 and 7 were the toughies. <em>Note:</em> day 10 is only half finished, and it wasn’t because it was too easy…</p>
+<p>Now let’s take a look at the <a href="https://adventofcode.com/2017/leaderboard/day/1">Advent of Code leaderboard</a>. This lists the first 100 people to get both stars (solve both halves of the puzzle) and the first 100 people to get the first star. These are the super speedsters, who apparently can whiz through these puzzles in minutes! We’ll use the <code>RCurl</code> package to help us grab the info:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">library</span>(RCurl)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">get_aoc_stats &lt;-<span class="st"> </span><span class="cf">function</span>(day) {</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">    <span class="co">#grab source code from leaderboard page for day specified</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">    url &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;https://adventofcode.com/2017/leaderboard/day/&quot;</span>, day)</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">    leaderboard &lt;-<span class="st"> </span><span class="kw">getURL</span>(url)</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">    </a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">    <span class="co">#extract times</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">    times &lt;-<span class="st"> </span><span class="kw">str_extract_all</span>(leaderboard, </a>
+<a class="sourceLine" id="cb4-10" data-line-number="10">                             <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">d:</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">d:</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">d&quot;</span>)[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb4-11" data-line-number="11">    <span class="co">#includes both first 100 to get both stars and first 100 to get 1st star</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12">    </a>
+<a class="sourceLine" id="cb4-13" data-line-number="13">    <span class="co">#return data frame with day, time to get both stars, and time to get one star</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14">    <span class="kw">data.frame</span>(<span class="dt">day =</span> day,</a>
+<a class="sourceLine" id="cb4-15" data-line-number="15">               <span class="dt">both_stars =</span> times[<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>],</a>
+<a class="sourceLine" id="cb4-16" data-line-number="16">               <span class="dt">one_star =</span> times[<span class="dv">101</span><span class="op">:</span><span class="dv">200</span>])</a>
+<a class="sourceLine" id="cb4-17" data-line-number="17">}</a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#apply this function to get Advent of Code leaderboard stats for days 1-10</span></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20">aoc_stats &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, get_aoc_stats)</a>
+<a class="sourceLine" id="cb4-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#combine list of data frames into one giant data frame.</span></a>
+<a class="sourceLine" id="cb4-23" data-line-number="23">aoc_stats_combined &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, aoc_stats)</a>
+<a class="sourceLine" id="cb4-24" data-line-number="24"><span class="kw">print</span>(<span class="kw">head</span>(aoc_stats_combined))</a></code></pre></div>
+<pre><code>##   day both_stars one_star
+## 1   1   00:01:16 00:00:57
+## 2   1   00:01:35 00:01:08
+## 3   1   00:01:37 00:01:12
+## 4   1   00:01:45 00:01:16
+## 5   1   00:02:03 00:01:18
+## 6   1   00:02:11 00:01:26</code></pre>
+<p>We can tidy up our data a bit using <code>tidyr</code>, <code>dplyr</code>, and <code>lubridate</code>, and then plot it using <code>ggplot</code>/<code>ggridges</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">library</span>(lubridate)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">library</span>(ggridges)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">aoc_stats_tidy &lt;-<span class="st"> </span>aoc_stats_combined <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">    </span><span class="kw">as.tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">    </span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="st">    </span><span class="co">#change both_stars and one_star from factor to character to combine</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">both_stars =</span> <span class="kw">as.character</span>(both_stars), </a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">           <span class="dt">one_star =</span> <span class="kw">as.character</span>(one_star)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="st">    </span><span class="kw">gather</span>(<span class="dt">key =</span> stars, <span class="dt">value =</span> time, <span class="op">-</span>day) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="st">    </span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="st">    </span><span class="co">#prep time for graphing... </span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">time =</span> <span class="kw">hms</span>(time), </a>
+<a class="sourceLine" id="cb6-14" data-line-number="14">           <span class="dt">time_min =</span> <span class="kw">as.numeric</span>(time)<span class="op">/</span><span class="dv">60</span>,</a>
+<a class="sourceLine" id="cb6-15" data-line-number="15">           <span class="dt">day =</span> <span class="kw">as.factor</span>(day))</a>
+<a class="sourceLine" id="cb6-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="kw">ggplot</span>(aoc_stats_tidy) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="st">    </span><span class="kw">geom_density_ridges</span>(<span class="kw">aes</span>(<span class="dt">y =</span> <span class="kw">fct_rev</span>(day), <span class="dt">x =</span> time_min, </a>
+<a class="sourceLine" id="cb6-19" data-line-number="19">                            <span class="dt">fill =</span> stars, <span class="dt">alpha =</span> <span class="fl">.9</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-21" data-line-number="21"><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Puzzle day&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Time (minutes)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="st">    </span><span class="kw">scale_y_discrete</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="fl">0.01</span>, <span class="dv">0</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-23" data-line-number="23"><span class="st">    </span><span class="kw">guides</span>(<span class="dt">alpha =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p><img src="aoc-2017_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>According to these times, the whiz coders also found puzzles 3, 7, and 10 to be difficult. We can use the more traditional box-plot to make the comparison with my lines of code more directly.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">library</span>(cowplot)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">aoc_plot &lt;-<span class="st"> </span>aoc_stats_tidy <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">    </span><span class="kw">filter</span>(stars <span class="op">==</span><span class="st"> &quot;both_stars&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="st">    </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="st">    </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> day, <span class="dt">y =</span> time_min)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Puzzle day&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Time (min)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="st">    </span><span class="kw">theme_bw</span>()</a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="kw">plot_grid</span>(aoc_plot, irene_plot, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">align =</span> <span class="st">&quot;v&quot;</span>)</a></code></pre></div>
+<p><img src="aoc-2017_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>And there you have it! How quickly the whizzes solved difficult puzzles was extremely variable, but on average, the time it took them matched the number of lines of code I wrote.</p>
+<blockquote>
+<p>All puzzles are equal, but some puzzles are more equal than others.</p>
+</blockquote>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="inverse-captcha.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

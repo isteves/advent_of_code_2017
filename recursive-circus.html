@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Advent of Code 2017</title>
+  <meta name="description" content="Solutions for R Users &amp; tidyverse lovers.">
+  <meta name="generator" content="bookdown 0.7.1 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Advent of Code 2017" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://isteves.github.io/advent_of_code_2017/" />
+  
+  <meta property="og:description" content="Solutions for R Users &amp; tidyverse lovers." />
+  <meta name="github-repo" content="isteves/advent_of_code_2017" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Advent of Code 2017" />
+  
+  <meta name="twitter:description" content="Solutions for R Users &amp; tidyverse lovers." />
+  
+
+<meta name="author" content="Irene Steves">
+
+
+<meta name="date" content="2018-03-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="memory-reallocation.html">
+<link rel="next" href="i-heard-you-like-registers.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Advent of Code 2017</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="some-data-exploration.html"><a href="some-data-exploration.html"><i class="fa fa-check"></i>Some data exploration</a></li>
+<li class="chapter" data-level="1" data-path="inverse-captcha.html"><a href="inverse-captcha.html"><i class="fa fa-check"></i><b>1</b> Inverse Captcha</a><ul>
+<li class="chapter" data-level="1.1" data-path="inverse-captcha.html"><a href="inverse-captcha.html#part-i"><i class="fa fa-check"></i><b>1.1</b> Part I</a></li>
+<li class="chapter" data-level="1.2" data-path="inverse-captcha.html"><a href="inverse-captcha.html#part-ii"><i class="fa fa-check"></i><b>1.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="corruption-checksum.html"><a href="corruption-checksum.html"><i class="fa fa-check"></i><b>2</b> Corruption Checksum</a><ul>
+<li class="chapter" data-level="2.1" data-path="corruption-checksum.html"><a href="corruption-checksum.html#part-i-1"><i class="fa fa-check"></i><b>2.1</b> Part I</a></li>
+<li class="chapter" data-level="2.2" data-path="corruption-checksum.html"><a href="corruption-checksum.html#part-ii-1"><i class="fa fa-check"></i><b>2.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="spiral-memory.html"><a href="spiral-memory.html"><i class="fa fa-check"></i><b>3</b> Spiral Memory</a><ul>
+<li class="chapter" data-level="3.1" data-path="spiral-memory.html"><a href="spiral-memory.html#part-i-2"><i class="fa fa-check"></i><b>3.1</b> Part I</a></li>
+<li class="chapter" data-level="3.2" data-path="spiral-memory.html"><a href="spiral-memory.html#part-ii-2"><i class="fa fa-check"></i><b>3.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="high-entropy-passphrases.html"><a href="high-entropy-passphrases.html"><i class="fa fa-check"></i><b>4</b> High-Entropy Passphrases</a><ul>
+<li class="chapter" data-level="4.1" data-path="high-entropy-passphrases.html"><a href="high-entropy-passphrases.html#part-i-3"><i class="fa fa-check"></i><b>4.1</b> Part I</a></li>
+<li class="chapter" data-level="4.2" data-path="high-entropy-passphrases.html"><a href="high-entropy-passphrases.html#part-ii-3"><i class="fa fa-check"></i><b>4.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="a-maze-of-twisty-trampolines-all-alike.html"><a href="a-maze-of-twisty-trampolines-all-alike.html"><i class="fa fa-check"></i><b>5</b> A Maze of Twisty Trampolines, All Alike</a><ul>
+<li class="chapter" data-level="5.1" data-path="a-maze-of-twisty-trampolines-all-alike.html"><a href="a-maze-of-twisty-trampolines-all-alike.html#part-i-4"><i class="fa fa-check"></i><b>5.1</b> Part I</a></li>
+<li class="chapter" data-level="5.2" data-path="a-maze-of-twisty-trampolines-all-alike.html"><a href="a-maze-of-twisty-trampolines-all-alike.html#part-ii-4"><i class="fa fa-check"></i><b>5.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="memory-reallocation.html"><a href="memory-reallocation.html"><i class="fa fa-check"></i><b>6</b> Memory Reallocation</a><ul>
+<li class="chapter" data-level="6.1" data-path="memory-reallocation.html"><a href="memory-reallocation.html#part-i-5"><i class="fa fa-check"></i><b>6.1</b> Part I</a></li>
+<li class="chapter" data-level="6.2" data-path="memory-reallocation.html"><a href="memory-reallocation.html#part-ii-5"><i class="fa fa-check"></i><b>6.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="recursive-circus.html"><a href="recursive-circus.html"><i class="fa fa-check"></i><b>7</b> Recursive Circus</a><ul>
+<li class="chapter" data-level="7.1" data-path="recursive-circus.html"><a href="recursive-circus.html#part-i-6"><i class="fa fa-check"></i><b>7.1</b> Part I</a></li>
+<li class="chapter" data-level="7.2" data-path="recursive-circus.html"><a href="recursive-circus.html#part-ii-6"><i class="fa fa-check"></i><b>7.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="i-heard-you-like-registers.html"><a href="i-heard-you-like-registers.html"><i class="fa fa-check"></i><b>8</b> I Heard You Like Registers</a><ul>
+<li class="chapter" data-level="8.1" data-path="i-heard-you-like-registers.html"><a href="i-heard-you-like-registers.html#part-i-7"><i class="fa fa-check"></i><b>8.1</b> Part I</a></li>
+<li class="chapter" data-level="8.2" data-path="i-heard-you-like-registers.html"><a href="i-heard-you-like-registers.html#part-ii-7"><i class="fa fa-check"></i><b>8.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="stream-processing.html"><a href="stream-processing.html"><i class="fa fa-check"></i><b>9</b> Stream Processing</a><ul>
+<li class="chapter" data-level="9.1" data-path="stream-processing.html"><a href="stream-processing.html#part-i-8"><i class="fa fa-check"></i><b>9.1</b> Part I</a></li>
+<li class="chapter" data-level="9.2" data-path="stream-processing.html"><a href="stream-processing.html#part-ii-8"><i class="fa fa-check"></i><b>9.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="knot-hash.html"><a href="knot-hash.html"><i class="fa fa-check"></i><b>10</b> Knot Hash</a><ul>
+<li class="chapter" data-level="10.1" data-path="knot-hash.html"><a href="knot-hash.html#part-i-9"><i class="fa fa-check"></i><b>10.1</b> Part I</a></li>
+<li class="chapter" data-level="10.2" data-path="knot-hash.html"><a href="knot-hash.html#part-ii-9"><i class="fa fa-check"></i><b>10.2</b> Part II</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Advent of Code 2017</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="recursive-circus" class="section level1">
+<h1><span class="header-section-number">Day 7</span> Recursive Circus</h1>
+<div id="part-i-6" class="section level2">
+<h2><span class="header-section-number">7.1</span> Part I</h2>
+<p><a href="https://adventofcode.com/2017/day/7">Day 7</a> can be summarized this way:</p>
+<ul>
+<li>You have a tower made up of programs that are holding each other up in levels</li>
+<li>You know their names, weights, and what programs they’re holding up</li>
+<li>Part I challenge: you need to determine which program is at the bottom</li>
+</ul>
+<p>The following example is provided:</p>
+<pre><code>if your list is the following:
+
+pbga (66)
+xhth (57)
+ebii (61)
+havc (66)
+ktlj (57)
+fwft (72) -&gt; ktlj, cntj, xhth
+qoyq (66)
+padx (45) -&gt; pbga, havc, qoyq
+tknk (41) -&gt; ugml, padx, fwft
+jptl (61)
+ugml (68) -&gt; gyxo, ebii, jptl
+gyxo (61)
+cntj (57)
+...then you would be able to recreate the structure of the towers that looks like this:
+
+                gyxo
+              /     
+         ugml - ebii
+       /      \     
+      |         jptl
+      |        
+      |         pbga
+     /        /
+tknk --- padx - havc
+     \        \
+      |         qoyq
+      |             
+      |         ktlj
+       \      /     
+         fwft - cntj
+              \     
+                xhth
+                
+In this example, tknk is at the bottom of the tower (the bottom program), and is
+holding up ugml, padx, and fwft. Those programs are, in turn, holding up other
+programs; in this example, none of those programs are holding up any other programs,
+and are all the tops of their own towers. (The actual tower balancing in front of you
+is much larger.)</code></pre>
+<p>Let’s start by coding up the example and tidying up the input to make it useable.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb96-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb96-3" data-line-number="3">input &lt;-<span class="st"> &quot;pbga (66)</span></a>
+<a class="sourceLine" id="cb96-4" data-line-number="4"><span class="st">xhth (57)</span></a>
+<a class="sourceLine" id="cb96-5" data-line-number="5"><span class="st">ebii (61)</span></a>
+<a class="sourceLine" id="cb96-6" data-line-number="6"><span class="st">havc (66)</span></a>
+<a class="sourceLine" id="cb96-7" data-line-number="7"><span class="st">ktlj (57)</span></a>
+<a class="sourceLine" id="cb96-8" data-line-number="8"><span class="st">fwft (72) -&gt; ktlj, cntj, xhth</span></a>
+<a class="sourceLine" id="cb96-9" data-line-number="9"><span class="st">qoyq (66)</span></a>
+<a class="sourceLine" id="cb96-10" data-line-number="10"><span class="st">padx (45) -&gt; pbga, havc, qoyq</span></a>
+<a class="sourceLine" id="cb96-11" data-line-number="11"><span class="st">tknk (41) -&gt; ugml, padx, fwft</span></a>
+<a class="sourceLine" id="cb96-12" data-line-number="12"><span class="st">jptl (61)</span></a>
+<a class="sourceLine" id="cb96-13" data-line-number="13"><span class="st">ugml (68) -&gt; gyxo, ebii, jptl</span></a>
+<a class="sourceLine" id="cb96-14" data-line-number="14"><span class="st">gyxo (61)</span></a>
+<a class="sourceLine" id="cb96-15" data-line-number="15"><span class="st">cntj (57)&quot;</span></a>
+<a class="sourceLine" id="cb96-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb96-17" data-line-number="17">input_vector &lt;-<span class="st"> </span><span class="kw">str_split</span>(input, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb96-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb96-19" data-line-number="19">input_tidy &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">input =</span> input_vector) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb96-20" data-line-number="20"><span class="st">    </span><span class="kw">separate</span>(input, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;program&quot;</span>, <span class="st">&quot;weight&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot; [(]&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb96-21" data-line-number="21"><span class="st">    </span><span class="kw">separate</span>(weight, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;weight&quot;</span>, <span class="st">&quot;upper&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;[)]&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb96-22" data-line-number="22"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">weight =</span> <span class="kw">as.numeric</span>(weight))</a>
+<a class="sourceLine" id="cb96-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb96-24" data-line-number="24"><span class="kw">print</span>(input_tidy)</a></code></pre></div>
+<pre><code>## # A tibble: 13 x 3
+##    program weight upper                 
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;                 
+##  1 pbga       66. &quot;&quot;                    
+##  2 xhth       57. &quot;&quot;                    
+##  3 ebii       61. &quot;&quot;                    
+##  4 havc       66. &quot;&quot;                    
+##  5 ktlj       57. &quot;&quot;                    
+##  6 fwft       72. &quot; -&gt; ktlj, cntj, xhth&quot;
+##  7 qoyq       66. &quot;&quot;                    
+##  8 padx       45. &quot; -&gt; pbga, havc, qoyq&quot;
+##  9 tknk       41. &quot; -&gt; ugml, padx, fwft&quot;
+## 10 jptl       61. &quot;&quot;                    
+## 11 ugml       68. &quot; -&gt; gyxo, ebii, jptl&quot;
+## 12 gyxo       61. &quot;&quot;                    
+## 13 cntj       57. &quot;&quot;</code></pre>
+<p>The bottom program is the only program that is not be carried by any other program. In other words, it’s the only <code>program</code> that does not appear in the <code>upper</code> column. Using <code>str_detect</code>, we can identify the one program missing from <code>upper</code>.</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1">upper_programs &lt;-<span class="st"> </span><span class="kw">paste</span>(input_tidy<span class="op">$</span>upper, <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>)</a>
+<a class="sourceLine" id="cb98-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb98-3" data-line-number="3">input_tidy <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb98-4" data-line-number="4"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">in_upper =</span> <span class="kw">str_detect</span>(upper_programs, </a>
+<a class="sourceLine" id="cb98-5" data-line-number="5">                                   <span class="dt">pattern =</span> program)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb98-6" data-line-number="6"><span class="st">    </span><span class="kw">filter</span>(in_upper <span class="op">==</span><span class="st"> </span><span class="ot">FALSE</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 1 x 4
+##   program weight upper                  in_upper
+##   &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;                  &lt;lgl&gt;   
+## 1 tknk       41. &quot; -&gt; ugml, padx, fwft&quot; FALSE</code></pre>
+<p>Now pass in the puzzle input and you’re good to go!</p>
+</div>
+<div id="part-ii-6" class="section level2">
+<h2><span class="header-section-number">7.2</span> Part II</h2>
+<p>In this section, we find out that one program is the wrong weight:</p>
+<pre><code>The programs explain the situation: they can&#39;t get down. Rather, they could get down, if they weren&#39;t expending all of their energy trying to keep the tower balanced. Apparently, one program has the wrong weight, and until it&#39;s fixed, they&#39;re stuck here.
+
+For any program holding a disc, each program standing on that disc forms a sub-tower. Each of those sub-towers are supposed to be the same weight, or the disc itself isn&#39;t balanced. The weight of a tower is the sum of the weights of the programs in that tower.
+
+In the example above, this means that for ugml&#39;s disc to be balanced, gyxo, ebii, and jptl must all have the same weight, and they do: 61.
+
+However, for tknk to be balanced, each of the programs standing on its disc and all programs above it must each match. This means that the following sums must all be the same:
+
+ugml + (gyxo + ebii + jptl) = 68 + (61 + 61 + 61) = 251
+padx + (pbga + havc + qoyq) = 45 + (66 + 66 + 66) = 243
+fwft + (ktlj + cntj + xhth) = 72 + (57 + 57 + 57) = 243
+As you can see, tknk&#39;s disc is unbalanced: ugml&#39;s stack is heavier than the other two. Even though the nodes above ugml are balanced, ugml itself is too heavy: it needs to be 8 units lighter for its stack to weigh 243 and keep the towers balanced. If this change were made, its weight would be 60.
+
+Given that exactly one program is the wrong weight, what would its weight need to be to balance the entire tower?</code></pre>
+<p>I decided to approach this problem in a step-wise manner. Starting at the top of the tower, I can find the “tips” by looking for programs that aren’t carrying other programs.</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1">tips &lt;-<span class="st"> </span>input_tidy <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb101-2" data-line-number="2"><span class="st">    </span><span class="kw">filter</span>(upper <span class="op">==</span><span class="st"> &quot;&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb101-3" data-line-number="3"><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>upper)</a>
+<a class="sourceLine" id="cb101-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb101-5" data-line-number="5"><span class="kw">print</span>(tips)</a></code></pre></div>
+<pre><code>## # A tibble: 9 x 2
+##   program weight
+##   &lt;chr&gt;    &lt;dbl&gt;
+## 1 pbga       66.
+## 2 xhth       57.
+## 3 ebii       61.
+## 4 havc       66.
+## 5 ktlj       57.
+## 6 qoyq       66.
+## 7 jptl       61.
+## 8 gyxo       61.
+## 9 cntj       57.</code></pre>
+<p>For these programs, their weights are straightforward. Since there are no other programs above them, their cumulative weights (<code>cum_weight</code>) are equal to their individual weights.</p>
+<p>To determine the cumulative weights of all programs, we can initialize a tibble based on our input, and then fill in the <code>cum_weights</code> as we go level-by-level through the tower.</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1">program_index &lt;-<span class="st"> </span>input_tidy <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb103-2" data-line-number="2"><span class="st">    </span><span class="kw">select</span>(program, weight) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb103-3" data-line-number="3"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">cum_weight =</span> <span class="ot">NA</span>)</a></code></pre></div>
+<p>To start, we can input the weights of the <code>tips</code> into the <code>program_index</code>.</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" data-line-number="1">program_index &lt;-<span class="st"> </span>program_index <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb104-2" data-line-number="2"><span class="st">    </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb104-3" data-line-number="3"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">cum_weight =</span> <span class="kw">ifelse</span>(program <span class="op">%in%</span><span class="st"> </span>tips<span class="op">$</span>program,</a>
+<a class="sourceLine" id="cb104-4" data-line-number="4">                               tips<span class="op">$</span>weight[tips<span class="op">$</span>program <span class="op">==</span><span class="st"> </span>program],</a>
+<a class="sourceLine" id="cb104-5" data-line-number="5">                               <span class="ot">NA</span>))</a>
+<a class="sourceLine" id="cb104-6" data-line-number="6"><span class="kw">print</span>(program_index)</a></code></pre></div>
+<pre><code>## Source: local data frame [13 x 3]
+## Groups: &lt;by row&gt;
+## 
+## # A tibble: 13 x 3
+##    program weight cum_weight
+##    &lt;chr&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+##  1 pbga       66.        66.
+##  2 xhth       57.        57.
+##  3 ebii       61.        61.
+##  4 havc       66.        66.
+##  5 ktlj       57.        57.
+##  6 fwft       72.        NA 
+##  7 qoyq       66.        66.
+##  8 padx       45.        NA 
+##  9 tknk       41.        NA 
+## 10 jptl       61.        61.
+## 11 ugml       68.        NA 
+## 12 gyxo       61.        61.
+## 13 cntj       57.        57.</code></pre>
+<p>We can also define our <code>bases</code> variable, that includes all programs with unknown cumulative weights (<code>cum_weight</code>).</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" data-line-number="1">bases &lt;-<span class="st"> </span>input_tidy <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb106-2" data-line-number="2"><span class="st">    </span><span class="kw">filter</span>(upper <span class="op">!=</span><span class="st"> &quot;&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb106-3" data-line-number="3"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">upper =</span> <span class="kw">str_replace</span>(upper, <span class="st">&quot; -&gt; &quot;</span>, <span class="st">&quot;&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb106-4" data-line-number="4"><span class="st">    </span><span class="kw">separate_rows</span>(upper, <span class="dt">sep =</span> <span class="st">&quot;, &quot;</span>)</a></code></pre></div>
+<p>We can then define some functions to do the following:</p>
+<ul>
+<li><code>calculate_weights</code>: calculate weights of programs whose “upper” programs have cum_weights already calculated</li>
+<li><code>add_cumweight_index</code>: add the <code>cum_weight</code> for newly calculated base programs into the program_index</li>
+<li><code>remove_bases</code>: remove bases whose <code>cum_weight</code>s are now known from the <code>bases</code> variable</li>
+</ul>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1">calculate_weights &lt;-<span class="st"> </span><span class="cf">function</span>(bases, program_index) {</a>
+<a class="sourceLine" id="cb107-2" data-line-number="2">    <span class="co">#bases = tibble with program, weight, and upper columns</span></a>
+<a class="sourceLine" id="cb107-3" data-line-number="3">    <span class="co">#program_index = tibble with program, weight, cum_weight columns</span></a>
+<a class="sourceLine" id="cb107-4" data-line-number="4">    </a>
+<a class="sourceLine" id="cb107-5" data-line-number="5">    bases <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb107-6" data-line-number="6"><span class="st">        </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb107-7" data-line-number="7"><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">upper_weight =</span> program_index<span class="op">$</span>cum_weight[program_index<span class="op">$</span>program <span class="op">==</span><span class="st"> </span>upper]) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb107-8" data-line-number="8"><span class="st">        </span>ungroup <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb107-9" data-line-number="9"><span class="st">        </span><span class="kw">group_by</span>(program) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb107-10" data-line-number="10"><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">cum_upper_weight =</span> <span class="kw">sum</span>(upper_weight), <span class="co">#sum up weights of upper programs</span></a>
+<a class="sourceLine" id="cb107-11" data-line-number="11">                  <span class="dt">base_weight =</span> <span class="kw">mean</span>(weight)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#keep weight of program holding ^ up</span></a>
+<a class="sourceLine" id="cb107-12" data-line-number="12"><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">cum_weight =</span> cum_upper_weight <span class="op">+</span><span class="st"> </span>base_weight) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb107-13" data-line-number="13"><span class="st">        </span><span class="kw">na.omit</span>()</a>
+<a class="sourceLine" id="cb107-14" data-line-number="14">    <span class="co">#returns only programs whose weights could be calculated</span></a>
+<a class="sourceLine" id="cb107-15" data-line-number="15">}</a>
+<a class="sourceLine" id="cb107-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb107-17" data-line-number="17">add_cumweight_index &lt;-<span class="st"> </span><span class="cf">function</span>(bases_calc, program_index) {</a>
+<a class="sourceLine" id="cb107-18" data-line-number="18">    <span class="co">#bases_calc = output of calculate_weights function</span></a>
+<a class="sourceLine" id="cb107-19" data-line-number="19">    <span class="co">#program_index = index of program weights to add new base weights to</span></a>
+<a class="sourceLine" id="cb107-20" data-line-number="20">    </a>
+<a class="sourceLine" id="cb107-21" data-line-number="21">    program_index <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb107-22" data-line-number="22"><span class="st">        </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb107-23" data-line-number="23"><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">cum_weight =</span> <span class="kw">ifelse</span>(program <span class="op">%in%</span><span class="st"> </span>bases_calc<span class="op">$</span>program,</a>
+<a class="sourceLine" id="cb107-24" data-line-number="24">                                   bases_calc<span class="op">$</span>cum_weight[bases_calc<span class="op">$</span>program <span class="op">==</span><span class="st"> </span>program],</a>
+<a class="sourceLine" id="cb107-25" data-line-number="25">                                   cum_weight))</a>
+<a class="sourceLine" id="cb107-26" data-line-number="26">    <span class="co">#returns updated program_index</span></a>
+<a class="sourceLine" id="cb107-27" data-line-number="27">}</a>
+<a class="sourceLine" id="cb107-28" data-line-number="28"></a>
+<a class="sourceLine" id="cb107-29" data-line-number="29">remove_bases &lt;-<span class="st"> </span><span class="cf">function</span>(bases, bases_calc) { </a>
+<a class="sourceLine" id="cb107-30" data-line-number="30">    <span class="co">#bases = original variable with all programs with unknown cumulative weights</span></a>
+<a class="sourceLine" id="cb107-31" data-line-number="31">    <span class="co">#bases_calc = bases to remove (those that were calculated)</span></a>
+<a class="sourceLine" id="cb107-32" data-line-number="32"></a>
+<a class="sourceLine" id="cb107-33" data-line-number="33">    bases <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb107-34" data-line-number="34"><span class="st">        </span><span class="kw">filter</span>(<span class="op">!</span>(program <span class="op">%in%</span><span class="st"> </span>bases_calc<span class="op">$</span>program))</a>
+<a class="sourceLine" id="cb107-35" data-line-number="35">    <span class="co">#returns programs that still have unknown cumulative weights</span></a>
+<a class="sourceLine" id="cb107-36" data-line-number="36">}</a></code></pre></div>
+<p>With these functions, we can then run through our sample input once to check it:</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1">bases_calc &lt;-<span class="st"> </span><span class="kw">calculate_weights</span>(bases, program_index)</a>
+<a class="sourceLine" id="cb108-2" data-line-number="2">new_index &lt;-<span class="st"> </span><span class="kw">add_cumweight_index</span>(bases_calc, program_index)</a>
+<a class="sourceLine" id="cb108-3" data-line-number="3"><span class="kw">print</span>(new_index)</a></code></pre></div>
+<pre><code>## Source: local data frame [13 x 3]
+## Groups: &lt;by row&gt;
+## 
+## # A tibble: 13 x 3
+##    program weight cum_weight
+##    &lt;chr&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+##  1 pbga       66.        66.
+##  2 xhth       57.        57.
+##  3 ebii       61.        61.
+##  4 havc       66.        66.
+##  5 ktlj       57.        57.
+##  6 fwft       72.       243.
+##  7 qoyq       66.        66.
+##  8 padx       45.       243.
+##  9 tknk       41.        NA 
+## 10 jptl       61.        61.
+## 11 ugml       68.       251.
+## 12 gyxo       61.        61.
+## 13 cntj       57.        57.</code></pre>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" data-line-number="1">new_bases &lt;-<span class="st"> </span><span class="kw">remove_bases</span>(bases, bases_calc)</a>
+<a class="sourceLine" id="cb110-2" data-line-number="2"><span class="kw">print</span>(new_bases)</a></code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   program weight upper
+##   &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;
+## 1 tknk       41. ugml 
+## 2 tknk       41. padx 
+## 3 tknk       41. fwft</code></pre>
+<p>It looks good! Now we just make some small modifications to the variable names so that we can loop through it until we’ve calculated <code>cum_weight</code>s for all bases. (I’ve also saved <code>bases</code> to <code>bases2</code> and <code>program_index</code> to <code>program_index2</code> to leave the original variable untouched.)</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" data-line-number="1">bases2 &lt;-<span class="st"> </span>bases</a>
+<a class="sourceLine" id="cb112-2" data-line-number="2">program_index2 &lt;-<span class="st"> </span>program_index</a>
+<a class="sourceLine" id="cb112-3" data-line-number="3"><span class="cf">while</span>(<span class="kw">nrow</span>(bases2) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>){</a>
+<a class="sourceLine" id="cb112-4" data-line-number="4">    bases_calc &lt;-<span class="st"> </span><span class="kw">calculate_weights</span>(bases2, program_index2)</a>
+<a class="sourceLine" id="cb112-5" data-line-number="5">    program_index2 &lt;-<span class="st"> </span><span class="kw">add_cumweight_index</span>(bases_calc, program_index2)</a>
+<a class="sourceLine" id="cb112-6" data-line-number="6">    bases2 &lt;-<span class="st"> </span><span class="kw">remove_bases</span>(bases2, bases_calc)</a>
+<a class="sourceLine" id="cb112-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb112-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb112-9" data-line-number="9"><span class="kw">print</span>(program_index2)</a></code></pre></div>
+<pre><code>## Source: local data frame [13 x 3]
+## Groups: &lt;by row&gt;
+## 
+## # A tibble: 13 x 3
+##    program weight cum_weight
+##    &lt;chr&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+##  1 pbga       66.        66.
+##  2 xhth       57.        57.
+##  3 ebii       61.        61.
+##  4 havc       66.        66.
+##  5 ktlj       57.        57.
+##  6 fwft       72.       243.
+##  7 qoyq       66.        66.
+##  8 padx       45.       243.
+##  9 tknk       41.       778.
+## 10 jptl       61.        61.
+## 11 ugml       68.       251.
+## 12 gyxo       61.        61.
+## 13 cntj       57.        57.</code></pre>
+<p>Now that the <code>program_index</code> (2) is filled out, we can use some summarization tricks to determine which program is causing all the problems.</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" data-line-number="1">bases <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb114-2" data-line-number="2"><span class="st">    </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb114-3" data-line-number="3"><span class="st">    </span><span class="co">#add in weights of all the &quot;upper&quot; programs</span></a>
+<a class="sourceLine" id="cb114-4" data-line-number="4"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">upper_weight =</span> program_index2<span class="op">$</span>cum_weight[program_index2<span class="op">$</span>program <span class="op">==</span><span class="st"> </span>upper]) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb114-5" data-line-number="5"><span class="st">    </span></a>
+<a class="sourceLine" id="cb114-6" data-line-number="6"><span class="st">    </span><span class="co">#instead of rowwise, now group by program</span></a>
+<a class="sourceLine" id="cb114-7" data-line-number="7"><span class="st">    </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(program) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb114-8" data-line-number="8"><span class="st">    </span></a>
+<a class="sourceLine" id="cb114-9" data-line-number="9"><span class="st">    </span><span class="co">#determine the number of unique upper_weights for each program</span></a>
+<a class="sourceLine" id="cb114-10" data-line-number="10"><span class="st">    </span><span class="co">#if any program has &gt;1 unique upper_weight, we know that it&#39;s holding up the faulty package</span></a>
+<a class="sourceLine" id="cb114-11" data-line-number="11"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">n_unique_upper =</span> <span class="kw">length</span>(<span class="kw">unique</span>(upper_weight)),</a>
+<a class="sourceLine" id="cb114-12" data-line-number="12">              <span class="dt">uppers =</span> <span class="kw">paste</span>(upper, <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>),</a>
+<a class="sourceLine" id="cb114-13" data-line-number="13">              <span class="dt">upper_weights =</span> <span class="kw">paste</span>(upper_weight, <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb114-14" data-line-number="14"><span class="st">    </span><span class="kw">filter</span>(n_unique_upper <span class="op">!=</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 1 x 4
+##   program n_unique_upper uppers         upper_weights
+##   &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;        
+## 1 tknk                 2 ugml padx fwft 251 243 243</code></pre>
+<p>Here, we see that the <code>ugml</code> program causes the tower to be unbalanced. Instead of weighing 251, it should weight 243.</p>
+<p>All that’s left is to try it with the puzzle input!</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="memory-reallocation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="i-heard-you-like-registers.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

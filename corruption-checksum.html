@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Advent of Code 2017</title>
+  <meta name="description" content="Solutions for R Users &amp; tidyverse lovers.">
+  <meta name="generator" content="bookdown 0.7.1 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Advent of Code 2017" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://isteves.github.io/advent_of_code_2017/" />
+  
+  <meta property="og:description" content="Solutions for R Users &amp; tidyverse lovers." />
+  <meta name="github-repo" content="isteves/advent_of_code_2017" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Advent of Code 2017" />
+  
+  <meta name="twitter:description" content="Solutions for R Users &amp; tidyverse lovers." />
+  
+
+<meta name="author" content="Irene Steves">
+
+
+<meta name="date" content="2018-03-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="inverse-captcha.html">
+<link rel="next" href="spiral-memory.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Advent of Code 2017</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="some-data-exploration.html"><a href="some-data-exploration.html"><i class="fa fa-check"></i>Some data exploration</a></li>
+<li class="chapter" data-level="1" data-path="inverse-captcha.html"><a href="inverse-captcha.html"><i class="fa fa-check"></i><b>1</b> Inverse Captcha</a><ul>
+<li class="chapter" data-level="1.1" data-path="inverse-captcha.html"><a href="inverse-captcha.html#part-i"><i class="fa fa-check"></i><b>1.1</b> Part I</a></li>
+<li class="chapter" data-level="1.2" data-path="inverse-captcha.html"><a href="inverse-captcha.html#part-ii"><i class="fa fa-check"></i><b>1.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="corruption-checksum.html"><a href="corruption-checksum.html"><i class="fa fa-check"></i><b>2</b> Corruption Checksum</a><ul>
+<li class="chapter" data-level="2.1" data-path="corruption-checksum.html"><a href="corruption-checksum.html#part-i-1"><i class="fa fa-check"></i><b>2.1</b> Part I</a></li>
+<li class="chapter" data-level="2.2" data-path="corruption-checksum.html"><a href="corruption-checksum.html#part-ii-1"><i class="fa fa-check"></i><b>2.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="spiral-memory.html"><a href="spiral-memory.html"><i class="fa fa-check"></i><b>3</b> Spiral Memory</a><ul>
+<li class="chapter" data-level="3.1" data-path="spiral-memory.html"><a href="spiral-memory.html#part-i-2"><i class="fa fa-check"></i><b>3.1</b> Part I</a></li>
+<li class="chapter" data-level="3.2" data-path="spiral-memory.html"><a href="spiral-memory.html#part-ii-2"><i class="fa fa-check"></i><b>3.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="high-entropy-passphrases.html"><a href="high-entropy-passphrases.html"><i class="fa fa-check"></i><b>4</b> High-Entropy Passphrases</a><ul>
+<li class="chapter" data-level="4.1" data-path="high-entropy-passphrases.html"><a href="high-entropy-passphrases.html#part-i-3"><i class="fa fa-check"></i><b>4.1</b> Part I</a></li>
+<li class="chapter" data-level="4.2" data-path="high-entropy-passphrases.html"><a href="high-entropy-passphrases.html#part-ii-3"><i class="fa fa-check"></i><b>4.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="a-maze-of-twisty-trampolines-all-alike.html"><a href="a-maze-of-twisty-trampolines-all-alike.html"><i class="fa fa-check"></i><b>5</b> A Maze of Twisty Trampolines, All Alike</a><ul>
+<li class="chapter" data-level="5.1" data-path="a-maze-of-twisty-trampolines-all-alike.html"><a href="a-maze-of-twisty-trampolines-all-alike.html#part-i-4"><i class="fa fa-check"></i><b>5.1</b> Part I</a></li>
+<li class="chapter" data-level="5.2" data-path="a-maze-of-twisty-trampolines-all-alike.html"><a href="a-maze-of-twisty-trampolines-all-alike.html#part-ii-4"><i class="fa fa-check"></i><b>5.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="memory-reallocation.html"><a href="memory-reallocation.html"><i class="fa fa-check"></i><b>6</b> Memory Reallocation</a><ul>
+<li class="chapter" data-level="6.1" data-path="memory-reallocation.html"><a href="memory-reallocation.html#part-i-5"><i class="fa fa-check"></i><b>6.1</b> Part I</a></li>
+<li class="chapter" data-level="6.2" data-path="memory-reallocation.html"><a href="memory-reallocation.html#part-ii-5"><i class="fa fa-check"></i><b>6.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="recursive-circus.html"><a href="recursive-circus.html"><i class="fa fa-check"></i><b>7</b> Recursive Circus</a><ul>
+<li class="chapter" data-level="7.1" data-path="recursive-circus.html"><a href="recursive-circus.html#part-i-6"><i class="fa fa-check"></i><b>7.1</b> Part I</a></li>
+<li class="chapter" data-level="7.2" data-path="recursive-circus.html"><a href="recursive-circus.html#part-ii-6"><i class="fa fa-check"></i><b>7.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="i-heard-you-like-registers.html"><a href="i-heard-you-like-registers.html"><i class="fa fa-check"></i><b>8</b> I Heard You Like Registers</a><ul>
+<li class="chapter" data-level="8.1" data-path="i-heard-you-like-registers.html"><a href="i-heard-you-like-registers.html#part-i-7"><i class="fa fa-check"></i><b>8.1</b> Part I</a></li>
+<li class="chapter" data-level="8.2" data-path="i-heard-you-like-registers.html"><a href="i-heard-you-like-registers.html#part-ii-7"><i class="fa fa-check"></i><b>8.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="stream-processing.html"><a href="stream-processing.html"><i class="fa fa-check"></i><b>9</b> Stream Processing</a><ul>
+<li class="chapter" data-level="9.1" data-path="stream-processing.html"><a href="stream-processing.html#part-i-8"><i class="fa fa-check"></i><b>9.1</b> Part I</a></li>
+<li class="chapter" data-level="9.2" data-path="stream-processing.html"><a href="stream-processing.html#part-ii-8"><i class="fa fa-check"></i><b>9.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="knot-hash.html"><a href="knot-hash.html"><i class="fa fa-check"></i><b>10</b> Knot Hash</a><ul>
+<li class="chapter" data-level="10.1" data-path="knot-hash.html"><a href="knot-hash.html#part-i-9"><i class="fa fa-check"></i><b>10.1</b> Part I</a></li>
+<li class="chapter" data-level="10.2" data-path="knot-hash.html"><a href="knot-hash.html#part-ii-9"><i class="fa fa-check"></i><b>10.2</b> Part II</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Advent of Code 2017</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="corruption-checksum" class="section level1">
+<h1><span class="header-section-number">Day 2</span> Corruption Checksum</h1>
+<p>Looking back on these challenges, I realize that many (perhaps all?) of these challenges were based on real computer-science concepts and theory! The <code>checksum</code> is one of them…</p>
+<div id="part-i-1" class="section level2">
+<h2><span class="header-section-number">2.1</span> Part I</h2>
+<p><a href="https://adventofcode.com/2017/day/2">Day 2’s</a> challenge describes a relatively simple checksum process:</p>
+<pre><code>The spreadsheet consists of rows of apparently-random numbers. To make sure the
+recovery process is on the right track, they need you to calculate the
+spreadsheet&#39;s checksum. For each row, determine the difference between the
+largest value and the smallest value; the checksum is the sum of all of these
+differences.
+
+For example, given the following spreadsheet:
+
+5 1 9 5
+7 5 3
+2 4 6 8
+
+The first row&#39;s largest and smallest values are 9 and 1, and their difference 
+is 8.
+The second row&#39;s largest and smallest values are 7 and 3, and their difference
+is 4.
+The third row&#39;s difference is 6.
+In this example, the spreadsheet&#39;s checksum would be 8 + 4 + 6 = 18.</code></pre>
+<p>When solving a puzzle (or building a function), it’s often easiest to consider the simplest case first. But sometimes, you just feel like diving directly into the mud, which is how I felt the first time around. I saved the puzzle input to a txt file in Notepad, opened it in Excel to save it to a csv, and then read it into R using <code>read.csv</code>. That’s a heck of a lot of manual steps! I realize now that R is smart enough to understand how txt files are delimitted (see help for <code>read.table</code>), and that it’s way easier to test code on a simple example that you know the answer to, rather than debugging by testing it on a giant monster.</p>
+<p>So, to do it the “proper” way, we start with code that works on a simple example:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">9</span>, <span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">              <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="ot">NA</span>),</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">              <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>))</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">diff_vec &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(data)){</a>
+<a class="sourceLine" id="cb13-7" data-line-number="7">    diff &lt;-<span class="st"> </span><span class="kw">max</span>(data[i,]) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(data[i,])</a>
+<a class="sourceLine" id="cb13-8" data-line-number="8">    diff_vec &lt;-<span class="st"> </span><span class="kw">c</span>(diff_vec, diff)</a>
+<a class="sourceLine" id="cb13-9" data-line-number="9">}</a>
+<a class="sourceLine" id="cb13-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb13-11" data-line-number="11">checksum &lt;-<span class="st"> </span><span class="kw">sum</span>(diff_vec)</a></code></pre></div>
+<p>When processing speed isn’t a problem, I default to for-loops because they jive well with my thought process (some later Advent of Code challenges will have some examples in which you want to avoid use of for-loops as much as possible). In the code chunk above, I initialized <code>diff_vec</code> to save the difference of each row. I then went row by row (from 1 to the number of rows in <code>data</code>) to calculate the difference. In the end, I summed all the differences that I’d saved in <code>diff_vec</code>.</p>
+<p>Once you get the simple data working, all you have to do is replace <code>data</code> with the more complicated puzzle input.</p>
+<p><em>Note:</em> efficient coders would prefer to–at minimum–initialize <code>diff_vec</code> as <code>vector(length = nrow(data))</code> and then fill in each slot <code>diff_vec[i]</code> as I calculate it. An analogy: you need an office mail organizer with enough spots for each professor in the department to have their own slot. Rather than building a new slot each time a professor gets mail for the first time, you can buy a giant mail organizer and assign each professor a slot as you go.</p>
+<p><img src="http://www.safcoproducts.com/wcsstore/ExtendedSitesCatalogAssetStore/htdocs/productMgr/img_hr/7766GR_hr.jpg" style="width:50.0%" /></p>
+</div>
+<div id="part-ii-1" class="section level2">
+<h2><span class="header-section-number">2.2</span> Part II</h2>
+<p>Oh no! It says that <code>the program seems a little worried</code>. :worried:</p>
+<pre><code>It sounds like the goal is to find the only two numbers in each row where one evenly
+divides the other - that is, where the result of the division operation is a whole
+number. They would like you to find those numbers on each line, divide them, and add up
+each line&#39;s result.
+
+For example, given the following spreadsheet:
+
+5 9 2 8
+9 4 7 3
+3 8 6 5
+In the first row, the only two numbers that evenly divide are 8 and 2; the result of
+this division is 4.
+In the second row, the two numbers are 9 and 3; the result is 3.
+In the third row, the result is 2.
+In this example, the sum of the results would be 4 + 3 + 2 = 9.
+
+What is the sum of each row&#39;s result in your puzzle input?</code></pre>
+<p>Let’s break it down a little:</p>
+<ul>
+<li>like before, we want a value for each row</li>
+<li>like before, we only care about two numbers in each row</li>
+<li>UNlike before, we’re doing some division…</li>
+</ul>
+<p><em>Disclaimer:</em> Coding is fun because there are often lots of ways of doing the same thing! For these challenges, most of the code is based on whatever pops into my head first.</p>
+<p>So, how might we check for evenly dividing numbers? The <code>%%</code> operator fits the bill! It calculates the remainder of one number divided by another. Here are some examples:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="dv">5</span> <span class="op">%%</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="dv">4</span> <span class="op">%%</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="dv">11</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>Now to apply it to our example, let’s take a simple vector, <code>v</code>. If we divide <code>v</code> by the first number in the vector (<code>v[1]</code> or “5”), the remainder is only zero when it is divided by itself. When <code>v</code> is divided by “2” (<code>v[3]</code>), on the other hand, the remainder for <em>both</em> 2 and 8 is zero.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">2</span>, <span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">v <span class="op">%%</span><span class="st"> </span>v[<span class="dv">1</span>]</a></code></pre></div>
+<pre><code>## [1] 0 4 2 3</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">v <span class="op">%%</span><span class="st"> </span>v[<span class="dv">3</span>]</a></code></pre></div>
+<pre><code>## [1] 1 1 0 0</code></pre>
+<p>Thus, the element of the vector that produces <em>two</em> zeroes when <code>v %% v[i]</code> must be the smaller of the two evenly divisible numbers. Let’s write up a function that can identify these numbers and then divide them.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">even_div &lt;-<span class="st"> </span><span class="cf">function</span>(numbers) {</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2">    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(numbers)){ </a>
+<a class="sourceLine" id="cb25-3" data-line-number="3">        n_remainder &lt;-<span class="st"> </span>numbers <span class="op">%%</span><span class="st"> </span>numbers[i]</a>
+<a class="sourceLine" id="cb25-4" data-line-number="4">        </a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">        <span class="co">#if the # of zeroes is two...</span></a>
+<a class="sourceLine" id="cb25-6" data-line-number="6">        <span class="cf">if</span>(<span class="kw">sum</span>(n_remainder <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">==</span><span class="st"> </span><span class="dv">2</span>){ </a>
+<a class="sourceLine" id="cb25-7" data-line-number="7">            </a>
+<a class="sourceLine" id="cb25-8" data-line-number="8">            <span class="co">#define position of the big and small number to divide evenly</span></a>
+<a class="sourceLine" id="cb25-9" data-line-number="9">            positions &lt;-<span class="st"> </span><span class="kw">which</span>(n_remainder <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb25-10" data-line-number="10">            pos_small &lt;-<span class="st"> </span>i</a>
+<a class="sourceLine" id="cb25-11" data-line-number="11">            pos_big &lt;-<span class="st"> </span>positions[<span class="kw">which</span>(positions <span class="op">!=</span><span class="st"> </span>i)]</a>
+<a class="sourceLine" id="cb25-12" data-line-number="12">        }</a>
+<a class="sourceLine" id="cb25-13" data-line-number="13">    }</a>
+<a class="sourceLine" id="cb25-14" data-line-number="14">    numbers[pos_big]<span class="op">/</span>numbers[pos_small]</a>
+<a class="sourceLine" id="cb25-15" data-line-number="15">}</a></code></pre></div>
+<p>Now that we have the function, we can apply it to all rows, and then sum it up! Challenge completed.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">8</span>),</a>
+<a class="sourceLine" id="cb26-2" data-line-number="2">              <span class="kw">c</span>(<span class="dv">9</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">              <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb26-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb26-5" data-line-number="5">quotients &lt;-<span class="st"> </span><span class="kw">apply</span>(data, <span class="dv">1</span>, even_div)</a>
+<a class="sourceLine" id="cb26-6" data-line-number="6"><span class="kw">sum</span>(quotients)</a></code></pre></div>
+<pre><code>## [1] 9</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="inverse-captcha.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="spiral-memory.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

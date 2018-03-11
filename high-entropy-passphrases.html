@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Advent of Code 2017</title>
+  <meta name="description" content="Solutions for R Users &amp; tidyverse lovers.">
+  <meta name="generator" content="bookdown 0.7.1 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Advent of Code 2017" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://isteves.github.io/advent_of_code_2017/" />
+  
+  <meta property="og:description" content="Solutions for R Users &amp; tidyverse lovers." />
+  <meta name="github-repo" content="isteves/advent_of_code_2017" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Advent of Code 2017" />
+  
+  <meta name="twitter:description" content="Solutions for R Users &amp; tidyverse lovers." />
+  
+
+<meta name="author" content="Irene Steves">
+
+
+<meta name="date" content="2018-03-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="spiral-memory.html">
+<link rel="next" href="a-maze-of-twisty-trampolines-all-alike.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Advent of Code 2017</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="some-data-exploration.html"><a href="some-data-exploration.html"><i class="fa fa-check"></i>Some data exploration</a></li>
+<li class="chapter" data-level="1" data-path="inverse-captcha.html"><a href="inverse-captcha.html"><i class="fa fa-check"></i><b>1</b> Inverse Captcha</a><ul>
+<li class="chapter" data-level="1.1" data-path="inverse-captcha.html"><a href="inverse-captcha.html#part-i"><i class="fa fa-check"></i><b>1.1</b> Part I</a></li>
+<li class="chapter" data-level="1.2" data-path="inverse-captcha.html"><a href="inverse-captcha.html#part-ii"><i class="fa fa-check"></i><b>1.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="corruption-checksum.html"><a href="corruption-checksum.html"><i class="fa fa-check"></i><b>2</b> Corruption Checksum</a><ul>
+<li class="chapter" data-level="2.1" data-path="corruption-checksum.html"><a href="corruption-checksum.html#part-i-1"><i class="fa fa-check"></i><b>2.1</b> Part I</a></li>
+<li class="chapter" data-level="2.2" data-path="corruption-checksum.html"><a href="corruption-checksum.html#part-ii-1"><i class="fa fa-check"></i><b>2.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="spiral-memory.html"><a href="spiral-memory.html"><i class="fa fa-check"></i><b>3</b> Spiral Memory</a><ul>
+<li class="chapter" data-level="3.1" data-path="spiral-memory.html"><a href="spiral-memory.html#part-i-2"><i class="fa fa-check"></i><b>3.1</b> Part I</a></li>
+<li class="chapter" data-level="3.2" data-path="spiral-memory.html"><a href="spiral-memory.html#part-ii-2"><i class="fa fa-check"></i><b>3.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="high-entropy-passphrases.html"><a href="high-entropy-passphrases.html"><i class="fa fa-check"></i><b>4</b> High-Entropy Passphrases</a><ul>
+<li class="chapter" data-level="4.1" data-path="high-entropy-passphrases.html"><a href="high-entropy-passphrases.html#part-i-3"><i class="fa fa-check"></i><b>4.1</b> Part I</a></li>
+<li class="chapter" data-level="4.2" data-path="high-entropy-passphrases.html"><a href="high-entropy-passphrases.html#part-ii-3"><i class="fa fa-check"></i><b>4.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="a-maze-of-twisty-trampolines-all-alike.html"><a href="a-maze-of-twisty-trampolines-all-alike.html"><i class="fa fa-check"></i><b>5</b> A Maze of Twisty Trampolines, All Alike</a><ul>
+<li class="chapter" data-level="5.1" data-path="a-maze-of-twisty-trampolines-all-alike.html"><a href="a-maze-of-twisty-trampolines-all-alike.html#part-i-4"><i class="fa fa-check"></i><b>5.1</b> Part I</a></li>
+<li class="chapter" data-level="5.2" data-path="a-maze-of-twisty-trampolines-all-alike.html"><a href="a-maze-of-twisty-trampolines-all-alike.html#part-ii-4"><i class="fa fa-check"></i><b>5.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="memory-reallocation.html"><a href="memory-reallocation.html"><i class="fa fa-check"></i><b>6</b> Memory Reallocation</a><ul>
+<li class="chapter" data-level="6.1" data-path="memory-reallocation.html"><a href="memory-reallocation.html#part-i-5"><i class="fa fa-check"></i><b>6.1</b> Part I</a></li>
+<li class="chapter" data-level="6.2" data-path="memory-reallocation.html"><a href="memory-reallocation.html#part-ii-5"><i class="fa fa-check"></i><b>6.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="recursive-circus.html"><a href="recursive-circus.html"><i class="fa fa-check"></i><b>7</b> Recursive Circus</a><ul>
+<li class="chapter" data-level="7.1" data-path="recursive-circus.html"><a href="recursive-circus.html#part-i-6"><i class="fa fa-check"></i><b>7.1</b> Part I</a></li>
+<li class="chapter" data-level="7.2" data-path="recursive-circus.html"><a href="recursive-circus.html#part-ii-6"><i class="fa fa-check"></i><b>7.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="i-heard-you-like-registers.html"><a href="i-heard-you-like-registers.html"><i class="fa fa-check"></i><b>8</b> I Heard You Like Registers</a><ul>
+<li class="chapter" data-level="8.1" data-path="i-heard-you-like-registers.html"><a href="i-heard-you-like-registers.html#part-i-7"><i class="fa fa-check"></i><b>8.1</b> Part I</a></li>
+<li class="chapter" data-level="8.2" data-path="i-heard-you-like-registers.html"><a href="i-heard-you-like-registers.html#part-ii-7"><i class="fa fa-check"></i><b>8.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="stream-processing.html"><a href="stream-processing.html"><i class="fa fa-check"></i><b>9</b> Stream Processing</a><ul>
+<li class="chapter" data-level="9.1" data-path="stream-processing.html"><a href="stream-processing.html#part-i-8"><i class="fa fa-check"></i><b>9.1</b> Part I</a></li>
+<li class="chapter" data-level="9.2" data-path="stream-processing.html"><a href="stream-processing.html#part-ii-8"><i class="fa fa-check"></i><b>9.2</b> Part II</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="knot-hash.html"><a href="knot-hash.html"><i class="fa fa-check"></i><b>10</b> Knot Hash</a><ul>
+<li class="chapter" data-level="10.1" data-path="knot-hash.html"><a href="knot-hash.html#part-i-9"><i class="fa fa-check"></i><b>10.1</b> Part I</a></li>
+<li class="chapter" data-level="10.2" data-path="knot-hash.html"><a href="knot-hash.html#part-ii-9"><i class="fa fa-check"></i><b>10.2</b> Part II</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Advent of Code 2017</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="high-entropy-passphrases" class="section level1">
+<h1><span class="header-section-number">Day 4</span> High-Entropy Passphrases</h1>
+<p>Let’s get down to business with <a href="https://adventofcode.com/2017/day/4">Day 4</a>.</p>
+<p><img src="https://blog.goennounce.com/wp-content/uploads/2015/12/lets-get-down-to-business-gif.gif" /></p>
+<div id="part-i-3" class="section level2">
+<h2><span class="header-section-number">4.1</span> Part I</h2>
+<pre><code>A new system policy has been put in place that requires all accounts to use a passphrase instead of simply a password. A passphrase consists of a series of words (lowercase letters) separated by spaces.
+
+To ensure security, a valid passphrase must contain no duplicate words.
+
+For example:
+
+aa bb cc dd ee is valid.
+aa bb cc dd aa is not valid - the word aa appears more than once.
+aa bb cc dd aaa is valid - aa and aaa count as different words.
+
+The system&#39;s full passphrase list is available as your puzzle input. How many passphrases are valid?</code></pre>
+<p>Here’s what the beginning of my puzzle input looked like:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1">puzzle_input &lt;-</a>
+<a class="sourceLine" id="cb60-2" data-line-number="2"><span class="st">    &quot;sayndz zfxlkl attjtww cti sokkmty brx fhh suelqbp</span></a>
+<a class="sourceLine" id="cb60-3" data-line-number="3"><span class="st">xmuf znkhaes pggrlp zia znkhaes znkhaes</span></a>
+<a class="sourceLine" id="cb60-4" data-line-number="4"><span class="st">nti rxr bogebb zdwrin</span></a>
+<a class="sourceLine" id="cb60-5" data-line-number="5"><span class="st">sryookh unrudn zrkz jxhrdo gctlyz</span></a>
+<a class="sourceLine" id="cb60-6" data-line-number="6"><span class="st">bssqn wbmdc rigc zketu ketichh enkixg bmdwc stnsdf jnz mqovwg ixgken</span></a>
+<a class="sourceLine" id="cb60-7" data-line-number="7"><span class="st">flawt cpott xth ucwgg xce jcubx wvl qsysa nlg</span></a>
+<a class="sourceLine" id="cb60-8" data-line-number="8"><span class="st">qovcqn zxcz vojsno nqoqvc hnf gqewlkd uevax vuna fxjkbll vfge</span></a>
+<a class="sourceLine" id="cb60-9" data-line-number="9"><span class="st">qrzf phwuf ligf xgen vkig elptd njdm gvqiu epfzsvk urbltg dqg</span></a>
+<a class="sourceLine" id="cb60-10" data-line-number="10"><span class="st">sfpku viwihi fje umdkwvi ejzhzj qrbl sfpku sad nawnow ksnku</span></a>
+<a class="sourceLine" id="cb60-11" data-line-number="11"><span class="st">nzhj mfudick ueaa jnhz kpy pzk</span></a>
+<a class="sourceLine" id="cb60-12" data-line-number="12"><span class="st">euiin xvl elaoelu wbdd xlv jtm nohtq gfdbgdg gdfggdb edtym</span></a>
+<a class="sourceLine" id="cb60-13" data-line-number="13"><span class="st">xfmkn wyww woe hwysuh gjw dtk utryasc dela eluk vmmun</span></a>
+<a class="sourceLine" id="cb60-14" data-line-number="14"><span class="st">nmag qfwe cwslmgd nlhf hpf</span></a>
+<a class="sourceLine" id="cb60-15" data-line-number="15"><span class="st">ifs sszo iod isf jna</span></a>
+<a class="sourceLine" id="cb60-16" data-line-number="16"><span class="st">pjptwg wreera leyb hmlbpf qcrbma ylgue</span></a>
+<a class="sourceLine" id="cb60-17" data-line-number="17"><span class="st">rwlpo jhla rprxvgs quguh pyybwgl qqvcb</span></a>
+<a class="sourceLine" id="cb60-18" data-line-number="18"><span class="st">rxtcpdy wmpci mpcwi vwvdzdn nfpnj rcsxinl itatg ycy hrctg ron wveju</span></a>
+<a class="sourceLine" id="cb60-19" data-line-number="19"><span class="st">zmkfn wip pyiz pyiz tnyg dvftf elks ezhotbj wip</span></a>
+<a class="sourceLine" id="cb60-20" data-line-number="20"><span class="st">sgmtfdd xdl sch sch yaxzh wphgksh knzrixp yaxzh etm czqbaa jldta</span></a>
+<a class="sourceLine" id="cb60-21" data-line-number="21"><span class="st">gnbr rnpd upe eeb sbq sbq oxc rwvugoj</span></a>
+<a class="sourceLine" id="cb60-22" data-line-number="22"><span class="st">cshk thcc emfxx emfxx pbtcf jpim vltkqar czy iudkac jhpcc nqs</span></a>
+<a class="sourceLine" id="cb60-23" data-line-number="23"><span class="st">uzbvx fkiuyk izxdiu yutntvn dixuzi hkyfnud oyz ynutntv&quot;</span></a></code></pre></div>
+<p>We are interested in determining if each passphrase is valid, so let’s start with a function:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb61-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb61-3" data-line-number="3">validate_passphrase &lt;-<span class="st"> </span><span class="cf">function</span>(passphrase) {</a>
+<a class="sourceLine" id="cb61-4" data-line-number="4">    words &lt;-<span class="st"> </span><span class="kw">str_split</span>(passphrase, <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]] <span class="co">#vector of words</span></a>
+<a class="sourceLine" id="cb61-5" data-line-number="5">    <span class="cf">if</span>(<span class="kw">any</span>(<span class="kw">duplicated</span>(words)) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>){ <span class="co">#if any words are duplicated</span></a>
+<a class="sourceLine" id="cb61-6" data-line-number="6">        valid =<span class="st"> </span><span class="ot">FALSE</span> <span class="co">#then the passcode is not valid</span></a>
+<a class="sourceLine" id="cb61-7" data-line-number="7">    } <span class="cf">else</span>{ <span class="co">#otherwise, it&#39;ll be false</span></a>
+<a class="sourceLine" id="cb61-8" data-line-number="8">        valid =<span class="st"> </span><span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb61-9" data-line-number="9">    }</a>
+<a class="sourceLine" id="cb61-10" data-line-number="10">    <span class="kw">return</span>(valid)</a>
+<a class="sourceLine" id="cb61-11" data-line-number="11">}</a></code></pre></div>
+<p>Let’s test it out to make sure it works the way we think it does:</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw">validate_passphrase</span>(<span class="st">&quot;I love starfruit and nectarines&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="kw">validate_passphrase</span>(<span class="st">&quot;I love chocolate cake and chocolate ice cream&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>With our function, we just need to reformat our puzzle input a bit and pipe everything through.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1">puzzle_input <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb66-2" data-line-number="2"><span class="st">    </span><span class="kw">str_split</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">simplify =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#split by line</span></a>
+<a class="sourceLine" id="cb66-3" data-line-number="3"><span class="st">    </span><span class="kw">t</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#transpose</span></a>
+<a class="sourceLine" id="cb66-4" data-line-number="4"><span class="st">    </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb66-5" data-line-number="5"><span class="st">    </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#run the function on each row separately</span></a>
+<a class="sourceLine" id="cb66-6" data-line-number="6"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">validation =</span> <span class="kw">validate_passphrase</span>(V1)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb66-7" data-line-number="7"><span class="st">    </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#ungroup to get the sum of ALL rows, not just each row separately</span></a>
+<a class="sourceLine" id="cb66-8" data-line-number="8"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">sum =</span> <span class="kw">sum</span>(validation)) <span class="co">#since TRUE = 1, the sum(validation) is the number of valid passphrases</span></a></code></pre></div>
+<pre><code>## # A tibble: 1 x 1
+##     sum
+##   &lt;int&gt;
+## 1    16</code></pre>
+<p>Easy peasy!</p>
+</div>
+<div id="part-ii-3" class="section level2">
+<h2><span class="header-section-number">4.2</span> Part II</h2>
+<pre><code>For added security, yet another system policy has been put in place. Now, a valid
+passphrase must contain no two words that are anagrams of each other - that is, a
+passphrase is invalid if any word&#39;s letters can be rearranged to form any other word
+in the passphrase.
+
+For example:
+
+abcde fghij is a valid passphrase.
+abcde xyz ecdab is not valid - the letters from the third word can be rearranged to form the first word.
+a ab abc abd abf abj is a valid passphrase, because all letters need to be used when forming another word.
+iiii oiii ooii oooi oooo is valid.
+oiii ioii iioi iiio is not valid - any of these words can be rearranged to form any other word.
+
+Under this new system policy, how many passphrases are valid?</code></pre>
+<p>To deal with anagrams, let’s write another function to rearrange all words alphabetically, and then revise <code>validate_passphrase</code> to account for anagrams. We’ll call this new function, <code>validate_anagrams</code>.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1">alphabetize &lt;-<span class="st"> </span><span class="cf">function</span>(word) { </a>
+<a class="sourceLine" id="cb69-2" data-line-number="2">    word <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb69-3" data-line-number="3"><span class="st">        </span><span class="kw">str_split</span>(<span class="st">&quot;&quot;</span>, <span class="dt">simplify =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#split into single letters</span></a>
+<a class="sourceLine" id="cb69-4" data-line-number="4"><span class="st">        </span><span class="kw">sort</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#alphabetize</span></a>
+<a class="sourceLine" id="cb69-5" data-line-number="5"><span class="st">        </span><span class="kw">str_c</span>(<span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>) <span class="co">#put back into a word</span></a>
+<a class="sourceLine" id="cb69-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb69-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb69-8" data-line-number="8">validate_anagrams &lt;-<span class="st"> </span><span class="cf">function</span>(passphrase) {</a>
+<a class="sourceLine" id="cb69-9" data-line-number="9">    words &lt;-<span class="st"> </span><span class="kw">str_split</span>(passphrase, <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]] <span class="co">#vector of words</span></a>
+<a class="sourceLine" id="cb69-10" data-line-number="10">    words_alpha &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw">lapply</span>(words, alphabetize))</a>
+<a class="sourceLine" id="cb69-11" data-line-number="11">    <span class="cf">if</span>(<span class="kw">any</span>(<span class="kw">duplicated</span>(words_alpha)) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>){ <span class="co">#if any words are duplicated</span></a>
+<a class="sourceLine" id="cb69-12" data-line-number="12">        valid =<span class="st"> </span><span class="ot">FALSE</span> <span class="co">#then the passcode is not valid</span></a>
+<a class="sourceLine" id="cb69-13" data-line-number="13">    } <span class="cf">else</span>{ <span class="co">#otherwise, it&#39;ll be false</span></a>
+<a class="sourceLine" id="cb69-14" data-line-number="14">        valid =<span class="st"> </span><span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb69-15" data-line-number="15">    }</a>
+<a class="sourceLine" id="cb69-16" data-line-number="16">    <span class="kw">return</span>(valid)</a>
+<a class="sourceLine" id="cb69-17" data-line-number="17">}</a></code></pre></div>
+<p>Now that we have our new function, we can stick it into the same pipe as before to get our answer! :star:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1">puzzle_input <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb70-2" data-line-number="2"><span class="st">    </span><span class="kw">str_split</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">simplify =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb70-3" data-line-number="3"><span class="st">    </span><span class="kw">t</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb70-4" data-line-number="4"><span class="st">    </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb70-5" data-line-number="5"><span class="st">    </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb70-6" data-line-number="6"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">validation =</span> <span class="kw">validate_anagrams</span>(V1)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb70-7" data-line-number="7"><span class="st">    </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb70-8" data-line-number="8"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">sum =</span> <span class="kw">sum</span>(validation)) </a></code></pre></div>
+<pre><code>## # A tibble: 1 x 1
+##     sum
+##   &lt;int&gt;
+## 1     9</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="spiral-memory.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="a-maze-of-twisty-trampolines-all-alike.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
