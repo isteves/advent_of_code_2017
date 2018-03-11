@@ -4,7 +4,7 @@ Author: Irene Steves
 Maintainer: Developer <developer@some.domain.net>
 Description: This is a description. 
 Version: 0.0.1
-Imports: bookdown, xfun, rmarkdown, tidyverse
+Imports: bookdown, xfun, rmarkdown, tidyverse, R.Utils, RCurl, lubridate, ggridges, cowplot
 Remotes: rstudio/bookdown
 License: GPL-2
 RoxygenNote: 6.0.1
